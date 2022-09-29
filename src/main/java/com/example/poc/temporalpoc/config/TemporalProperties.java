@@ -1,0 +1,176 @@
+package com.example.poc.temporalpoc.config;
+
+import java.lang.reflect.Field;
+import java.time.Duration;
+import java.util.Map;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@Data
+@NoArgsConstructor
+@ConfigurationProperties(prefix = "spring.temporal")
+public class TemporalProperties {
+
+  private String host;
+  private Integer port;
+  private Boolean useSsl;
+
+  private boolean createWorkers = true;
+
+  private String namespace = "default";
+
+  private WorkflowOption workflowDefaults;
+
+  private WorkflowOption activityWorkerDefaults;
+
+  private Map<String, WorkflowOption> workflows;
+
+  private Map<String, WorkflowOption> activityWorkers;
+
+  private ActivityStubOptions activityStubDefaults;
+
+  private Map<String, ActivityStubOptions> activityStubs;
+
+  private WorkflowServiceStubOptions workflowServiceStubOptions;
+
+  private boolean addedDefaultsToWorkflows = false;
+
+  private boolean addedDefaultsToActivities = false;
+
+  @Data
+  @NoArgsConstructor
+  public static class WorkflowOption {
+
+    private String taskQueue;
+
+    private String cronSchedule;
+
+    private Long executionTimeout;
+
+    private String executionTimeoutUnit;
+
+    private Integer activityPoolSize;
+
+    private Integer workflowPoolSize;
+
+    private Integer activityPollThreadPoolSize;
+
+    private Integer workflowPollThreadPoolSize;
+  }
+
+  /**
+   * Options passed to WorkflowServiceStubsOptions Please notice, not all of the options are exposed
+   * here
+   */
+  @Data
+  @NoArgsConstructor
+  public static class WorkflowServiceStubOptions {
+    private Boolean disableHealthCheck;
+    private Duration healthCheckAttemptTimeout;
+    private Duration healthCheckTimeout;
+    private Boolean enableKeepAlive;
+    private Duration keepAliveTime;
+    private Duration keepAliveTimeout;
+    private Boolean keepAlivePermitWithoutStream;
+    private Duration rpcLongPollTimeout;
+    private Duration rpcQueryTimeout;
+    private Duration rpcTimeout;
+    private Duration connectionBackoffResetFrequency;
+    private Duration grpcReconnectFrequency;
+  }
+
+  @Data
+  @NoArgsConstructor
+  public static class ActivityStubOptions {
+    private String taskQueue;
+    private String cronSchedule;
+    private Duration scheduleToCloseTimeout;
+    private Duration scheduleToStartTimeout;
+    private Duration startToCloseTimeout;
+    private Duration heartbeatTimeout;
+  }
+
+  public Map<String, WorkflowOption> getWorkflows() {
+    if (!addedDefaultsToWorkflows) {
+      synchronized (this) {
+        workflows.forEach(
+            (key, value) -> {
+              if (value.getExecutionTimeout() == null) {
+                value.setExecutionTimeout(workflowDefaults.getExecutionTimeout());
+              }
+
+              value.cronSchedule =
+                  value.getCronSchedule() == null
+                      ? workflowDefaults.cronSchedule
+                      : value.cronSchedule;
+
+              if (value.getExecutionTimeoutUnit() == null) {
+                value.setExecutionTimeoutUnit(workflowDefaults.getExecutionTimeoutUnit());
+              }
+              if (value.getActivityPoolSize() == null) {
+                value.setActivityPoolSize(workflowDefaults.getActivityPoolSize());
+              }
+              if (value.getWorkflowPoolSize() == null) {
+                value.setWorkflowPoolSize(workflowDefaults.getWorkflowPoolSize());
+              }
+              if (value.getWorkflowPollThreadPoolSize() == null) {
+                value.setWorkflowPollThreadPoolSize(
+                    workflowDefaults.getWorkflowPollThreadPoolSize());
+              }
+              if (value.getActivityPollThreadPoolSize() == null) {
+                value.setActivityPollThreadPoolSize(
+                    workflowDefaults.getActivityPollThreadPoolSize());
+              }
+              addedDefaultsToWorkflows = true;
+            });
+      }
+    }
+    return workflows;
+  }
+
+  public Map<String, WorkflowOption> getActivityWorkers() {
+    if (!addedDefaultsToActivities) {
+      synchronized (this) {
+        activityWorkers.forEach(
+            (key, value) -> {
+              if (value.getExecutionTimeout() == null) {
+                value.setExecutionTimeout(activityWorkerDefaults.getExecutionTimeout());
+              }
+              if (value.getExecutionTimeoutUnit() == null) {
+                value.setExecutionTimeoutUnit(activityWorkerDefaults.getExecutionTimeoutUnit());
+              }
+              if (value.getActivityPoolSize() == null) {
+                value.setActivityPoolSize(activityWorkerDefaults.getActivityPoolSize());
+              }
+              if (value.getWorkflowPoolSize() == null) {
+                value.setWorkflowPoolSize(activityWorkerDefaults.getWorkflowPoolSize());
+              }
+              if (value.getWorkflowPollThreadPoolSize() == null) {
+                value.setWorkflowPollThreadPoolSize(
+                    workflowDefaults.getWorkflowPollThreadPoolSize());
+              }
+              if (value.getActivityPollThreadPoolSize() == null) {
+                value.setActivityPollThreadPoolSize(
+                    workflowDefaults.getActivityPollThreadPoolSize());
+              }
+              addedDefaultsToActivities = true;
+            });
+      }
+    }
+    return activityWorkers;
+  }
+
+  public ActivityStubOptions getActivityStubOptionsForField(Field field) {
+    Map<String, ActivityStubOptions> stubMap = getActivityStubs();
+    if (stubMap != null) {
+      String simpleStubName = field.getType().getSimpleName();
+      String fullStubName =
+          field.getDeclaringClass().getInterfaces()[0].getSimpleName() + "." + simpleStubName;
+
+      return stubMap.getOrDefault(fullStubName, stubMap.get(simpleStubName));
+    } else {
+      return null;
+    }
+  }
+}

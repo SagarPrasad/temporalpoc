@@ -1,0 +1,8 @@
+server:
+  port: 9097
+
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enable: false
