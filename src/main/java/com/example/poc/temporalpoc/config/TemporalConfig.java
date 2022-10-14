@@ -28,6 +28,7 @@ public class TemporalConfig {
 
   private String temporalNamespace = "default";
 
+
   @Bean
   public WorkflowServiceStubs workflowServiceStubs(MeterRegistry registry) {
     //PrometheusMeterRegistry registry = new PrometheusMeterRegistry(PrometheusConfig.DEFAULT);
