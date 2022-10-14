@@ -7,7 +7,7 @@ import io.temporal.activity.ActivityMethod;
 public interface SampleActivity {
 
   @ActivityMethod
-  void placeOrder();
+  void placeOrder(String xml);
 
   @ActivityMethod
   void setOrderAccepted();
@@ -19,6 +19,9 @@ public interface SampleActivity {
   void setOrderDelivered();
 
   @ActivityMethod
-  String simulateRetry();
+  String simulateRetry(String xml);
+
+  @ActivityMethod
+  String callSBServiceMethod();
 
 }

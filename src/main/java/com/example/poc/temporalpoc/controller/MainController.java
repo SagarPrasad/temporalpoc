@@ -4,6 +4,7 @@ import com.example.poc.temporalpoc.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,8 +15,8 @@ public class MainController {
   OrderService orderService;
 
   @PostMapping("/startWorkflow")
-  public String createOrder(@RequestParam("id") String id) {
-    orderService.placeOrder(id);
+  public String createOrder(@RequestParam("id") String id, @RequestBody String xml) {
+    orderService.placeOrder(id, xml);
     return "Order Placed";
   }
 

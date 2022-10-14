@@ -11,7 +11,7 @@ public interface SampleWorkflow {
   public static final String QUEUE_NAME = "Customer_Order";
 
   @WorkflowMethod(name = "InitiatePOCWF")
-  void startApprovalWorkflow();
+  void startApprovalWorkflow(SampleWorkflowDomain xml);
 
   @SignalMethod(name = "orderAcceptedSignal")
   void signalOrderAccepted();

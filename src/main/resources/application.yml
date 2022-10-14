@@ -2,7 +2,33 @@ server:
   port: 9097
 
 spring:
+  sleuth:
+    propagation:
+      type: W3C
   cloud:
     loadbalancer:
       ribbon:
         enable: false
+#  temporal:
+#    workersAutoDiscovery:
+#      packages: com.example.poc.temporalpoc
+#    test-server:
+#      enabled: false
+#    connection:
+#      target: 127.0.0.1:7233
+#    namespace: poc
+#    start-workers: true
+#    workers:
+#      - taskQueue: Customer_Order
+#        workflowClasses:
+#          - com.example.poc.temporalpoc.workflow.SampleWorkflow
+#        activityBeans:
+#          - SampleActivity
+local:
+  config: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus

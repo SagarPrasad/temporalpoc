@@ -5,11 +5,10 @@ import java.time.Duration;
 import java.util.Map;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
 @NoArgsConstructor
-@ConfigurationProperties(prefix = "spring.temporal")
+//@ConfigurationProperties(prefix = "spring.temporal")
 public class TemporalProperties {
 
   private String host;
