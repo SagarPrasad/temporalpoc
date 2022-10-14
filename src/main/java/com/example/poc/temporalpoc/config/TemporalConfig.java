@@ -18,9 +18,8 @@ import io.temporal.worker.WorkerFactoryOptions;
 import io.temporal.worker.WorkerOptions;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 @ConditionalOnProperty(prefix = "local", name = "config", havingValue = "true")
 public class TemporalConfig {
   //private String temporalServiceAddress = "10.21.76.166:7233";

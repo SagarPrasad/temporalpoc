@@ -9,15 +9,15 @@ spring:
     loadbalancer:
       ribbon:
         enable: false
-#  temporal:
-#    workersAutoDiscovery:
-#      packages: com.example.poc.temporalpoc
+  temporal:
+    workersAutoDiscovery:
+      packages: com.example.poc.temporalpoc
 #    test-server:
 #      enabled: false
-#    connection:
-#      target: 127.0.0.1:7233
-#    namespace: poc
-#    start-workers: true
+    connection:
+      target: 127.0.0.1:7233
+    namespace: default
+    start-workers: true
 #    workers:
 #      - taskQueue: Customer_Order
 #        workflowClasses:
@@ -25,7 +25,7 @@ spring:
 #        activityBeans:
 #          - SampleActivity
 local:
-  config: true
+  config: false
 
 management:
   endpoints:
