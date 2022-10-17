@@ -25,8 +25,11 @@ public class MainController {
 
   @PostMapping("/identifyWorkflow")
   public String createOrder(@RequestParam("OrderNumber") String orderNumber) {
+    // Should we use any cache layer to identify the workflowid running in system ?
     ListWorkflowExecutionsResponse response =
-        workflowServiceStubs.blockingStub().listWorkflowExecutions(ListWorkflowExecutionsRequest.newBuilder()
+        workflowServiceStubs
+            .blockingStub()
+            .listWorkflowExecutions(ListWorkflowExecutionsRequest.newBuilder()
             .setNamespace(client.getOptions().getNamespace())
             .setQuery("OrderNumber='" + orderNumber + "'")
             .build());
