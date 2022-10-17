@@ -1,6 +1,7 @@
 package com.example.poc.temporalpoc.service;
 
 import com.example.poc.temporalpoc.controller.ClientInterface;
+import com.example.poc.temporalpoc.workflow.DuplicateWorkflow;
 import com.example.poc.temporalpoc.workflow.SampleWorkflow;
 import com.example.poc.temporalpoc.workflow.SampleWorkflowDomain;
 import io.micrometer.core.annotation.Timed;
@@ -13,9 +14,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 @Service
+@Scope(value="prototype", proxyMode= ScopedProxyMode.TARGET_CLASS)
 public class OrderService {
 
   @Autowired
@@ -31,6 +35,11 @@ public class OrderService {
     // can be check in activity or work to complete or ignore it ?
     SampleWorkflowDomain domain = new SampleWorkflowDomain(xml, new Date());
     WorkflowClient.start(workflow::startApprovalWorkflow, domain);
+  }
+
+  public void newWorkflow(String workflowId) {
+    DuplicateWorkflow workflow = createDuplicateWorkFlowConnection(workflowId);
+    WorkflowClient.start(workflow::newworkflow);
   }
 
   public void makeOrderAccepted(String workflowId) {
@@ -57,6 +66,15 @@ public class OrderService {
         .setSearchAttributes(getSearchableAttributes(id))
         .setWorkflowId("Order_" + id).build();
     return workflowClient.newWorkflowStub(SampleWorkflow.class, options);
+  }
+
+  public DuplicateWorkflow createDuplicateWorkFlowConnection(String id) {
+    WorkflowOptions options = WorkflowOptions
+        .newBuilder()
+        .setTaskQueue(DuplicateWorkflow.QUEUE_NAME)
+        .setSearchAttributes(getSearchableAttributes(id))
+        .setWorkflowId("Order_" + id).build();
+    return workflowClient.newWorkflowStub(DuplicateWorkflow.class, options);
   }
 
   private Map<String,?> getSearchableAttributes(String arg/*String... arglist*/) {

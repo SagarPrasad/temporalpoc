@@ -1,6 +1,11 @@
 package com.example.poc.temporalpoc.controller;
 
 import com.example.poc.temporalpoc.service.OrderService;
+import io.temporal.api.workflow.v1.WorkflowExecutionInfo;
+import io.temporal.api.workflowservice.v1.ListWorkflowExecutionsRequest;
+import io.temporal.api.workflowservice.v1.ListWorkflowExecutionsResponse;
+import io.temporal.client.WorkflowClient;
+import io.temporal.serviceclient.WorkflowServiceStubs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,11 +18,38 @@ public class MainController {
 
   @Autowired
   OrderService orderService;
+  @Autowired
+  WorkflowServiceStubs workflowServiceStubs;
+  @Autowired
+  WorkflowClient client;
+
+  @PostMapping("/identifyWorkflow")
+  public String createOrder(@RequestParam("OrderNumber") String orderNumber) {
+    ListWorkflowExecutionsResponse response =
+        workflowServiceStubs.blockingStub().listWorkflowExecutions(ListWorkflowExecutionsRequest.newBuilder()
+            .setNamespace(client.getOptions().getNamespace())
+            .setQuery("OrderNumber='" + orderNumber + "'")
+            .build());
+
+    String responseString = "notfound";
+    for (WorkflowExecutionInfo workflowExecutionInfo : response.getExecutionsList()) {
+      responseString = workflowExecutionInfo.getExecution().getWorkflowId();
+      System.out.println("Workflow ID: " + responseString);
+    }
+    return responseString;
+  }
+
 
   @PostMapping("/startWorkflow")
   public String createOrder(@RequestParam("id") String id, @RequestBody String xml) {
     orderService.placeOrder(id, xml);
     return "Order Placed";
+  }
+
+  @PostMapping("/newWorkflow")
+  public String newWorkflow(@RequestParam("id") String id) {
+    orderService.newWorkflow(id);
+    return "New Workflow created";
   }
 
   @PostMapping("/orderAccepted")
