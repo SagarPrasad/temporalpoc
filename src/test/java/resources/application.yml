@@ -1,0 +1,14 @@
+spring:
+  temporal:
+    workersAutoDiscovery:
+      packages: com.example.poc.temporalpoc
+    test-server:
+      enabled: true
+    namespace: default
+    start-workers: true
+#    workers:
+#      - taskQueue: Customer_Order
+#        workflowClasses:
+#          - com.example.poc.temporalpoc.workflow.SampleWorkflow
+#        activityBeans:
+#          - SampleActivity

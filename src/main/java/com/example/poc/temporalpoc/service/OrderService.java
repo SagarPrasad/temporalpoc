@@ -1,6 +1,5 @@
 package com.example.poc.temporalpoc.service;
 
-import com.example.poc.temporalpoc.controller.ClientInterface;
 import com.example.poc.temporalpoc.workflow.DuplicateWorkflow;
 import com.example.poc.temporalpoc.workflow.SampleWorkflow;
 import com.example.poc.temporalpoc.workflow.SampleWorkflowDomain;
@@ -14,16 +13,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 @Service
-@Scope(value="prototype", proxyMode= ScopedProxyMode.TARGET_CLASS)
 public class OrderService {
 
-  @Autowired
-  ClientInterface clientInterface;
+  /*@Autowired
+  ClientInterface clientInterface;*/
 
   @Autowired
   WorkflowClient workflowClient;
