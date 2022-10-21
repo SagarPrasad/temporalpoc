@@ -42,6 +42,11 @@ public class OrderService {
     SampleWorkflow workflow = workflowClient.newWorkflowStub(SampleWorkflow.class, "Order_" + workflowId);
     //workflowClient.getOptions().getContextPropagators();
     //System.out.println(clientInterface.getEmployee());
+    // UnComment - this to test termination
+    /*
+    WorkflowStub workflowStub = workflowClient.newUntypedWorkflowStub("Order_" + workflowId);
+    workflowStub.terminate("Reason to terminate", null);
+     */
     workflow.signalOrderAccepted();
   }
 
