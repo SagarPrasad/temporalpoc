@@ -1,0 +1,2398 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "FRMS Order APIs - OpenAPI 3.0",
+    "description" : "This is a high level api for the creating and managing order for SCM in Herald Platform.\n\nSome useful links:\n- [FRMS git repository](https://github.com/swagger-api/swagger-petstore)\n- [Sharepoint URL](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)",
+    "termsOfService" : "http://swagger.io/terms/",
+    "contact" : {
+      "email" : "apiteam@swagger.io"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0"
+  },
+  "externalDocs" : {
+    "description" : "Find out more about Swagger",
+    "url" : "http://swagger.io"
+  },
+  "servers" : [ {
+    "url" : "https://api.jioscm-uat.jio.com/"
+  }, {
+    "url" : "https://api.jioscm-rep.jio.com/"
+  } ],
+  "tags" : [ {
+    "name" : "FRMS",
+    "description" : "Everything about your SCM Orders",
+    "externalDocs" : {
+      "description" : "Find out more",
+      "url" : "http://swagger.io"
+    }
+  } ],
+  "paths" : {
+    "/frms/v1/orders" : {
+      "get" : {
+        "tags" : [ "Order" ],
+        "summary" : "Get Order By Conditions",
+        "description" : "GerOrder List By different Conditions",
+        "operationId" : "getOrderList",
+        "parameters" : [ {
+          "name" : "status",
+          "in" : "query",
+          "description" : "Order Status on which it needs to be filtered (and condition)",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "INVOICED"
+        }, {
+          "name" : "since",
+          "in" : "query",
+          "description" : "default will be last 24 hours",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "24h"
+        }, {
+          "name" : "orderType",
+          "in" : "query",
+          "description" : "Pass different orderType",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "SALES"
+        }, {
+          "name" : "orderSubType",
+          "in" : "query",
+          "description" : "Pass different orderSubType",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "EXCHANGE"
+        }, {
+          "name" : "orderDate",
+          "in" : "query",
+          "description" : "Order Date",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "2022-10-13T15:49:18+05:30"
+        }, {
+          "name" : "x-tenant",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "x-version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "x-source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "x-reqid",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Basic Order Details with Status",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Order Doesn't Exists",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Order" ],
+        "summary" : "Creating Different Types of Order",
+        "description" : "Create Different Types of Order Like Sales Order/ Purchase Order",
+        "operationId" : "createOrder",
+        "parameters" : [ {
+          "name" : "x-tenant",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "x-version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "x-source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "x-reqid",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "requestBody" : {
+          "description" : "Creation of an order in json",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Order"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "order is accepted",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderCreateResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Mandatory field Missing",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/frms/v1/orders/{orderNo}" : {
+      "get" : {
+        "tags" : [ "Order" ],
+        "summary" : "Get Order",
+        "description" : "Create Different Types of Order Like Sales Order/ Purchase Order",
+        "operationId" : "getOrder",
+        "parameters" : [ {
+          "name" : "orderNo",
+          "in" : "path",
+          "description" : "Order Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-tenant",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "x-version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "x-source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "x-reqid",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Basic Order Details with Status",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Order Doesn't Exists",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/frms/v1/orders/{orderNo}/status" : {
+      "get" : {
+        "tags" : [ "Order" ],
+        "summary" : "Get Order Status",
+        "description" : "Get Order Status",
+        "operationId" : "getOrderStatus",
+        "parameters" : [ {
+          "name" : "orderNo",
+          "in" : "path",
+          "description" : "Order Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-tenant",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "x-version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "x-source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "x-reqid",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Basic Order Details with Status",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StatusAudit"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Order Doesn't Exists",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/frms/v1/orders/{orderNo}/orderline/status" : {
+      "get" : {
+        "tags" : [ "Order" ],
+        "summary" : "Get Order Line Status (OSM)",
+        "description" : "Get Order Line Status",
+        "operationId" : "getOrderLineStatus",
+        "parameters" : [ {
+          "name" : "orderNo",
+          "in" : "path",
+          "description" : "Order Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-tenant",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "x-version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "x-source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "x-reqid",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Basic Order Details with Status",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StatusAudit"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Order Doesn't Exists",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/frms/v1/orders/{orderNo}/shipments" : {
+      "get" : {
+        "tags" : [ "Shipment" ],
+        "summary" : "Get Order Shipments",
+        "description" : "Create Different Types of Order Like Sales Order/ Purchase Order",
+        "operationId" : "getOrderShipments",
+        "parameters" : [ {
+          "name" : "orderNo",
+          "in" : "path",
+          "description" : "Order Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-tenant",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "x-version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "x-source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "x-reqid",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the array of shipment against order",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Order Doesn't Exists",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/frms/v1/orders/{orderNo}/shipments/{shipmentNo}" : {
+      "get" : {
+        "tags" : [ "Shipment" ],
+        "summary" : "Get Shipment",
+        "description" : "Create Different Types of Order Like Sales Order/ Purchase Order",
+        "operationId" : "getOrderShipment",
+        "parameters" : [ {
+          "name" : "orderNo",
+          "in" : "path",
+          "description" : "Order Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "shipmentNo",
+          "in" : "path",
+          "description" : "Shipment Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-tenant",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "x-version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "x-source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "x-reqid",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the array of shipment against order",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Order Doesn't Exists",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/frms/v1/orders/{orderNo}/shipments/{shipmentNo}/status" : {
+      "get" : {
+        "tags" : [ "Shipment" ],
+        "summary" : "Get Shipment Staus",
+        "description" : "Create Different Types of Order Like Sales Order/ Purchase Order",
+        "operationId" : "getOrderShipmentStatus",
+        "parameters" : [ {
+          "name" : "orderNo",
+          "in" : "path",
+          "description" : "Order Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "shipmentNo",
+          "in" : "path",
+          "description" : "Shipment Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-tenant",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "x-version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "x-source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "x-reqid",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the array of shipment against order",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Order Doesn't Exists",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "OrderCreateResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "enum" : [ "accepted", "processing", "placed", "delivered", "cancelled", "partially delivered", "hold" ]
+          },
+          "orderNo" : {
+            "type" : "string",
+            "description" : "Customer Order Number or Purchase Order Number",
+            "example" : "FNA1300005611"
+          },
+          "orderId" : {
+            "type" : "string",
+            "description" : "FRMS Order unique id",
+            "example" : "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "href" : {
+            "type" : "string",
+            "description" : "URL for the order status",
+            "example" : "https://api-uat.scm.com/frms/v1/order/{orderNo}/status"
+          }
+        }
+      },
+      "Address" : {
+        "type" : "object",
+        "properties" : {
+          "addressId" : {
+            "type" : "string",
+            "description" : "Address Id",
+            "example" : "9200c1a7-8b5a-41ce-8def-096de055db3a"
+          },
+          "externalAddressId" : {
+            "type" : "string",
+            "description" : "External address Id",
+            "example" : "9200c1a7-8b5a-41ce-8def-096de055db3a"
+          },
+          "addressType" : {
+            "type" : "string",
+            "description" : "Address type",
+            "example" : "BillTo"
+          },
+          "address1" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "address2" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "address3" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "address4" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "address5" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "address6" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "city" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "company" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "country" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "zone" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "state" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "stateCode" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "zipCode" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "firstName" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "lastName" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "middleName" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "commercialAddress" : {
+            "type" : "boolean",
+            "description" : "commerical Address",
+            "example" : false
+          },
+          "alternateContact" : {
+            "type" : "string",
+            "example" : "9414100962",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "mobileNo" : {
+            "type" : "string",
+            "example" : "9414100962",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "gstin" : {
+            "type" : "string",
+            "example" : "AKBTT01283N",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "panNo" : {
+            "type" : "string",
+            "description" : "pan card",
+            "example" : "AURPP02384N",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "tanNo" : {
+            "type" : "string",
+            "description" : "pan card",
+            "example" : "AURPP02384N",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "fssai" : {
+            "type" : "string",
+            "description" : "fssai",
+            "example" : "QWERTYUIO",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "gstClassification" : {
+            "type" : "string",
+            "description" : "GST Classification",
+            "example" : "unregistered",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "clusterManagerName" : {
+            "type" : "string",
+            "description" : "Cluster Manager Name",
+            "example" : "Ambani"
+          },
+          "clusterManagerContact" : {
+            "type" : "number",
+            "description" : "Cluster Manager Contact",
+            "example" : 1234567890
+          },
+          "clusterManagerEmail" : {
+            "type" : "string",
+            "description" : "Cluster Manager Email",
+            "example" : "Ambani@ril.com"
+          },
+          "storeManagerName" : {
+            "type" : "string",
+            "description" : "Store Manager Name",
+            "example" : "Ambani"
+          },
+          "storeManagerContact" : {
+            "type" : "string",
+            "description" : "Store Manager Contact",
+            "example" : "Ambani"
+          },
+          "storeManagerEmail" : {
+            "type" : "string",
+            "description" : "Store Manager Email",
+            "example" : "Ambani"
+          },
+          "customerName" : {
+            "type" : "string",
+            "description" : "name of customer",
+            "example" : "TEST MID 55042675"
+          },
+          "storeName" : {
+            "type" : "string",
+            "description" : "B2B Store name",
+            "example" : "TEST MID 55042675"
+          },
+          "storeType" : {
+            "type" : "string",
+            "description" : "Store type",
+            "example" : "B2B",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "gstTradeName" : {
+            "type" : "string",
+            "description" : "GST Trade name",
+            "example" : "TEST MID 55042675",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "merchantId" : {
+            "type" : "string",
+            "description" : "Merchant Id",
+            "example" : "100002000065692",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "emailId" : {
+            "type" : "string",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "location" : {
+            "$ref" : "#/components/schemas/Address_location"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "Error" : {
+        "type" : "object",
+        "properties" : {
+          "errorCode" : {
+            "type" : "string",
+            "example" : "FFL201"
+          },
+          "errorMessage" : {
+            "type" : "string",
+            "example" : "Item ShortPicked - Itm1001"
+          },
+          "traceId" : {
+            "type" : "string",
+            "example" : "b3-asda031"
+          },
+          "errorDetails" : {
+            "type" : "object",
+            "example" : "Stack Trace or error list"
+          },
+          "timestamp" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "FulfillmentDate" : {
+        "type" : "object",
+        "properties" : {
+          "dateType" : {
+            "type" : "string",
+            "description" : "Order Date/Estimated Delivery Date/Promised Ship Date/Revised Ship Date/Promised Delivery Date/Revised Promised Delivery Date/Hold Till Date/Estimated Refund Date/Revised Estimated Refund Date/Promised Pickup Date/Revised Promised Pickup Date",
+            "example" : "promiseShipDate"
+          },
+          "value" : {
+            "type" : "string",
+            "description" : "value of datetype",
+            "example" : "2022-10-13T15:49:18+05:30"
+          },
+          "reason" : {
+            "type" : "string",
+            "description" : "date reason",
+            "example" : "Some Sample"
+          }
+        },
+        "description" : "Dates"
+      },
+      "OrderFee" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "deliveryFee / codFee / platformFee / priorityFee/ returnFee"
+          },
+          "enabled" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "value" : {
+            "type" : "number",
+            "description" : "Delivery Fee value",
+            "example" : 30
+          }
+        }
+      },
+      "Order" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Unique id to represent the Order request",
+            "format" : "uuid",
+            "example" : "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "externalOrderNo" : {
+            "type" : "string",
+            "description" : "Order Number from Source system",
+            "example" : "10842349428349"
+          },
+          "orderNo" : {
+            "type" : "string",
+            "description" : "Customer Order Number or Purchase Order Number",
+            "example" : "FNA1300005611"
+          },
+          "orderDate" : {
+            "type" : "string",
+            "description" : "Created Order Date captured by source system",
+            "example" : "2022-12-09T10:37:31.453+05:30"
+          },
+          "orderType" : {
+            "type" : "string",
+            "description" : "Order Type",
+            "example" : "SALES/PO"
+          },
+          "orderSubType" : {
+            "type" : "string",
+            "description" : "sub order type",
+            "example" : "FORWARD/RETURN/EXCHANGE"
+          },
+          "orderTotalAmount" : {
+            "type" : "number",
+            "description" : "Order Total Amount",
+            "example" : 2024.58
+          },
+          "cartId" : {
+            "type" : "string",
+            "description" : "Cart ID",
+            "example" : "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "parentOrderNo" : {
+            "type" : "string",
+            "description" : "for Return orders only",
+            "example" : "FNA9400005418"
+          },
+          "ParenteEnterpriseCode" : {
+            "type" : "string",
+            "description" : "For return orders only",
+            "example" : "FnL"
+          },
+          "allocationRuleID" : {
+            "type" : "string",
+            "description" : "Allocation Rule ID",
+            "example" : "SCH_Fnl"
+          },
+          "authorizedClient" : {
+            "type" : "string",
+            "description" : "Authorized Client",
+            "example" : "Hybris"
+          },
+          "tenantId" : {
+            "type" : "string",
+            "description" : "tenant for this order",
+            "example" : "AJIOB2C"
+          },
+          "subTenant" : {
+            "type" : "string",
+            "description" : "subtenant for this order",
+            "example" : "FnL"
+          },
+          "entryType" : {
+            "type" : "string",
+            "description" : "Source channel of the order",
+            "example" : "AK footwear"
+          },
+          "createAt" : {
+            "type" : "string",
+            "description" : "date of order creation",
+            "example" : "2022-12-09T10:37:31.453+05:30"
+          },
+          "createdBy" : {
+            "type" : "string",
+            "description" : "source identifier of the order",
+            "example" : "createorder"
+          },
+          "paymentMode" : {
+            "type" : "string",
+            "description" : "payment type of the order",
+            "example" : "NONCOD"
+          },
+          "PaymentRuleID" : {
+            "type" : "string",
+            "description" : "Payment Rule ID",
+            "example" : "PAY_RULE_FnL"
+          },
+          "termsCode" : {
+            "type" : "string",
+            "description" : "Terms Code for Returns order",
+            "example" : "storeCredit"
+          },
+          "site" : {
+            "type" : "string",
+            "description" : "Site related to PO order"
+          },
+          "warehouse" : {
+            "type" : "string",
+            "description" : "warehouse related to PO order"
+          },
+          "plant" : {
+            "type" : "string",
+            "description" : "Plant related to PO order"
+          },
+          "purchasingGroup" : {
+            "type" : "string",
+            "description" : "PurchasingGroup related to PO order"
+          },
+          "priceListConfiguration" : {
+            "type" : "string",
+            "description" : "Price List Configuration related to PO order"
+          },
+          "purchasingReferenceid" : {
+            "type" : "string",
+            "description" : "Purchasing Reference id related to PO order"
+          },
+          "costCenter" : {
+            "type" : "string",
+            "description" : "Cost Center related to PO order"
+          },
+          "vendorSKUCode" : {
+            "type" : "string",
+            "description" : "Vendor SKU Code related to PO order"
+          },
+          "invoiceSystem" : {
+            "type" : "string",
+            "description" : "New Invoice System",
+            "example" : "New Invoice Service"
+          },
+          "fulfillmentSystem" : {
+            "type" : "string",
+            "description" : "Sterling/FS",
+            "example" : "FS"
+          },
+          "priorityCode" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Status of the order",
+            "example" : "SHIPMENT_CREATED"
+          },
+          "minStatus" : {
+            "type" : "string",
+            "description" : "Status of the order",
+            "example" : "PARTIAL_SHIPMENT_CREATED"
+          },
+          "maxStatus" : {
+            "type" : "string",
+            "description" : "Status of the order",
+            "example" : "PARTIAL_SHIPMENT_CREATED"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          },
+          "buyer" : {
+            "$ref" : "#/components/schemas/Party"
+          },
+          "seller" : {
+            "$ref" : "#/components/schemas/Party"
+          },
+          "OrderLines" : {
+            "type" : "array",
+            "description" : "Array of all order lines",
+            "items" : {
+              "$ref" : "#/components/schemas/OrderLine"
+            }
+          },
+          "OrderFees" : {
+            "type" : "array",
+            "description" : "Array of all order fees",
+            "items" : {
+              "$ref" : "#/components/schemas/OrderFee"
+            }
+          },
+          "OrderPaymentDetails" : {
+            "type" : "array",
+            "description" : "Array of all order payment mop",
+            "items" : {
+              "$ref" : "#/components/schemas/OrderPayment"
+            }
+          },
+          "OrderStatusAudit" : {
+            "type" : "array",
+            "description" : "Array of all order lines",
+            "items" : {
+              "$ref" : "#/components/schemas/StatusAudit"
+            }
+          }
+        }
+      },
+      "OrderLineCharge" : {
+        "type" : "object",
+        "properties" : {
+          "chargeAmount" : {
+            "type" : "number",
+            "description" : "discount amount",
+            "example" : 1.29
+          },
+          "chargeCategory" : {
+            "type" : "string",
+            "description" : "category of the charge",
+            "example" : "Shipping/Promotion/SELLER_PROMO"
+          },
+          "chargeName" : {
+            "type" : "string",
+            "description" : "Charge Name",
+            "example" : "Shipping"
+          },
+          "chargePerLine" : {
+            "type" : "number",
+            "description" : "charge per line",
+            "example" : 10.02
+          },
+          "chargePerUnit" : {
+            "type" : "number",
+            "description" : "charge per unit",
+            "example" : 13.9
+          },
+          "roundOffAmount" : {
+            "type" : "number",
+            "description" : "roundoff amount",
+            "example" : -0.02
+          },
+          "billable" : {
+            "type" : "boolean",
+            "description" : "is Billable",
+            "example" : true
+          },
+          "discount" : {
+            "type" : "boolean",
+            "description" : "is Discount",
+            "example" : true
+          },
+          "manual" : {
+            "type" : "boolean",
+            "description" : "is Manual(Over and above other Promotion/Discount; input required as part of order processing)",
+            "example" : true
+          },
+          "shippingCharge" : {
+            "type" : "boolean",
+            "description" : "is Shipping Charge",
+            "example" : true
+          }
+        }
+      },
+      "OrderLineItemDetail" : {
+        "type" : "object",
+        "properties" : {
+          "itemId" : {
+            "type" : "string",
+            "example" : "460001938003"
+          },
+          "sellerSkuId" : {
+            "type" : "string",
+            "description" : "Seller SKU ID",
+            "example" : "B2C_JIT_0709_S5_99"
+          },
+          "desc" : {
+            "type" : "string",
+            "example" : "someItemDesc"
+          },
+          "displayItemDescription" : {
+            "type" : "string",
+            "description" : "Display Item description",
+            "example" : "Park men jeans amber m"
+          },
+          "shortDescription" : {
+            "type" : "string",
+            "description" : "Short Description",
+            "example" : "Park men jeans"
+          },
+          "itemGroupCode" : {
+            "type" : "string",
+            "description" : "Item Group Code",
+            "example" : "PROD"
+          },
+          "catalogName" : {
+            "type" : "string",
+            "description" : "Catalog Name",
+            "example" : "luxuryProductCatalog"
+          },
+          "class" : {
+            "type" : "string",
+            "description" : "Item / Product class",
+            "example" : "GOOD"
+          },
+          "uom" : {
+            "type" : "string",
+            "description" : "Unit of Measure",
+            "example" : "EACH"
+          },
+          "colorCode" : {
+            "type" : "string",
+            "description" : "colour of the Item",
+            "example" : "Graphite Grey"
+          },
+          "productLine" : {
+            "type" : "string",
+            "description" : "product line of the Item",
+            "example" : "830904002"
+          },
+          "shortDesc" : {
+            "type" : "string",
+            "example" : "some short desc"
+          },
+          "eanNo" : {
+            "type" : "string",
+            "description" : "The ECCN number of an item(ean number).",
+            "example" : "2050000430770"
+          },
+          "sellerEanNo" : {
+            "type" : "string",
+            "description" : "Seller ECCN number of an item(ean number).",
+            "example" : "2050000430770"
+          },
+          "eccnNo" : {
+            "type" : "string",
+            "description" : "The ECCN number of an item(ean number).",
+            "example" : "2050000430770"
+          },
+          "brandName" : {
+            "type" : "string",
+            "example" : "Apple"
+          },
+          "brandSizeCode" : {
+            "type" : "string",
+            "example" : "M"
+          },
+          "hsnCode" : {
+            "type" : "string",
+            "description" : "Tax product Code of an item(HSN Code)",
+            "example" : "61041300"
+          },
+          "taxProductCode" : {
+            "type" : "string",
+            "description" : "Tax product Code of an item",
+            "example" : "61041300"
+          },
+          "reportingHSNCode" : {
+            "type" : "string",
+            "description" : "Reporting HSNCode of an item",
+            "example" : "61041300"
+          },
+          "segment" : {
+            "type" : "string",
+            "description" : "Segement of the Item",
+            "example" : "Men"
+          },
+          "itemSize" : {
+            "type" : "string",
+            "description" : "Size of the Item",
+            "example" : "OS"
+          },
+          "manufactureName" : {
+            "type" : "string",
+            "description" : "Manufacture Name -Source OMS",
+            "example" : "ManufactureName"
+          },
+          "imageURL" : {
+            "type" : "string",
+            "description" : "Image URL -Source OMS",
+            "example" : "Image URL"
+          },
+          "pdpImageUrl" : {
+            "type" : "string",
+            "description" : "PDP Image URL -Source OMS",
+            "example" : "Image URL"
+          },
+          "imageThumbnailURL" : {
+            "type" : "string",
+            "description" : "PDP Image URL -Source OMS",
+            "example" : "Image URL"
+          },
+          "fashionGrade" : {
+            "type" : "string",
+            "description" : "Fashion Grade",
+            "example" : "2"
+          },
+          "unitVolumetricWeight" : {
+            "type" : "number",
+            "description" : "Unit Volumetric Weight",
+            "example" : 1750
+          },
+          "brickCode" : {
+            "type" : "string",
+            "description" : "Brick code",
+            "example" : "830201001"
+          },
+          "organizationCode" : {
+            "type" : "string",
+            "description" : "organizationCode -Source OMS",
+            "example" : "organizationCode"
+          },
+          "itemCategory" : {
+            "type" : "string",
+            "description" : "Item Category"
+          },
+          "priceListConfig" : {
+            "type" : "string",
+            "description" : "Price List Configuration"
+          },
+          "season" : {
+            "type" : "string",
+            "description" : "Season"
+          },
+          "qcRwquirement" : {
+            "type" : "boolean",
+            "description" : "QC Requirement",
+            "example" : true
+          },
+          "qcType" : {
+            "type" : "string",
+            "description" : "QC type",
+            "example" : "Sample/All"
+          },
+          "samplingRatio" : {
+            "type" : "string",
+            "description" : "Sampling Ratio",
+            "example" : "1:10 or 1:20 or"
+          },
+          "itemType" : {
+            "type" : "string",
+            "description" : "Item Type",
+            "example" : "consumable/sellable"
+          },
+          "dimension" : {
+            "$ref" : "#/components/schemas/ItemDimension"
+          },
+          "flag" : {
+            "$ref" : "#/components/schemas/ItemFlag"
+          }
+        }
+      },
+      "ItemFlag" : {
+        "type" : "object",
+        "properties" : {
+          "batteryBased" : {
+            "type" : "boolean",
+            "description" : "Battery Base Flag",
+            "example" : true
+          },
+          "restricted" : {
+            "type" : "boolean",
+            "description" : "Restricted Flag",
+            "example" : true
+          },
+          "secured" : {
+            "type" : "boolean",
+            "description" : "Secure Flag",
+            "example" : true
+          },
+          "fragile" : {
+            "type" : "boolean",
+            "description" : "Fragile Flag",
+            "example" : true
+          },
+          "luxury" : {
+            "type" : "boolean",
+            "description" : "Luxury Flag",
+            "example" : true
+          },
+          "mto" : {
+            "type" : "boolean",
+            "description" : "MTO Flag",
+            "example" : true
+          },
+          "multiPartShipment" : {
+            "type" : "boolean",
+            "description" : "Multi-part Shipment  Flag",
+            "example" : true
+          },
+          "heavy" : {
+            "type" : "boolean",
+            "description" : "Heavy Flag",
+            "example" : true
+          },
+          "bulky" : {
+            "type" : "boolean",
+            "description" : "Bulky Flag",
+            "example" : true
+          },
+          "priorityDelivery" : {
+            "type" : "boolean",
+            "description" : "Priority Delivery Flag",
+            "example" : true
+          },
+          "grabAndGo" : {
+            "type" : "boolean",
+            "description" : "Grab and Go Flag",
+            "example" : true
+          },
+          "3Pl" : {
+            "type" : "boolean",
+            "description" : "is 3P Flag",
+            "example" : true
+          },
+          "returnable" : {
+            "type" : "boolean",
+            "description" : "is Returnable",
+            "example" : true
+          },
+          "taxable" : {
+            "type" : "boolean",
+            "description" : "is Taxable",
+            "example" : true
+          },
+          "digitalProduct" : {
+            "type" : "boolean",
+            "description" : "is Digital Product",
+            "example" : true
+          },
+          "gift" : {
+            "type" : "boolean",
+            "description" : "is Gift",
+            "example" : true
+          },
+          "allowGiftWrap" : {
+            "type" : "boolean",
+            "description" : "Allow Gift Wrap",
+            "example" : true
+          }
+        }
+      },
+      "ItemDimension" : {
+        "type" : "object",
+        "properties" : {
+          "height" : {
+            "type" : "number",
+            "description" : "height of the Item",
+            "example" : 2.16
+          },
+          "heightUom" : {
+            "type" : "string",
+            "description" : "Height Unit of measure",
+            "example" : "CM"
+          },
+          "length" : {
+            "type" : "number",
+            "description" : "length of the Item",
+            "example" : 35.1
+          },
+          "lengthUom" : {
+            "type" : "string",
+            "description" : "Length Unit of measure",
+            "example" : "CM"
+          },
+          "width" : {
+            "type" : "number",
+            "description" : "Width of the Item",
+            "example" : 35.1
+          },
+          "widthUom" : {
+            "type" : "string",
+            "description" : "Width Unit of measure",
+            "example" : "CM"
+          },
+          "volume" : {
+            "type" : "number",
+            "description" : "Volume of the Item",
+            "example" : 35.1
+          },
+          "volumeUom" : {
+            "type" : "string",
+            "description" : "Width Unit of measure",
+            "example" : "CUCENTIMETER"
+          },
+          "weight" : {
+            "type" : "number",
+            "description" : "Volume of the Item",
+            "example" : 35.1
+          },
+          "weightUom" : {
+            "type" : "string",
+            "description" : "Width Unit of measure",
+            "example" : "GRAM"
+          },
+          "sizeCode" : {
+            "type" : "string",
+            "description" : "size code of the Item",
+            "example" : "FreeSize"
+          },
+          "serialized" : {
+            "type" : "boolean",
+            "description" : "size code of the Item",
+            "example" : true
+          },
+          "componentCount" : {
+            "type" : "integer",
+            "description" : "no of components",
+            "format" : "int32",
+            "example" : 1
+          },
+          "countryOfOrigin" : {
+            "type" : "string",
+            "description" : "COO",
+            "example" : "IN"
+          },
+          "sizeFormat" : {
+            "type" : "string",
+            "description" : "size Format of the Item",
+            "example" : "US"
+          },
+          "noOfSecondarySerials" : {
+            "type" : "integer",
+            "description" : "Secondary serials",
+            "format" : "int32",
+            "example" : 0
+          },
+          "itemType" : {
+            "type" : "string",
+            "description" : "itemType serials",
+            "example" : "Lux"
+          }
+        }
+      },
+      "OrderLinePaymentReference" : {
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "type" : "number",
+            "description" : "Amount",
+            "example" : 150.79
+          },
+          "mop" : {
+            "type" : "string",
+            "description" : "MOP Type",
+            "example" : "RELIANCE_ONE"
+          },
+          "includedInLineTotal" : {
+            "type" : "integer",
+            "description" : "Included Amount in the line total"
+          }
+        }
+      },
+      "OrderLinePrice" : {
+        "type" : "object",
+        "properties" : {
+          "mrp" : {
+            "type" : "number",
+            "description" : "Max Retail Price",
+            "example" : 100.51
+          },
+          "retailPrice" : {
+            "type" : "number",
+            "description" : "Max Retail Price",
+            "example" : 100.51
+          },
+          "unitPrice" : {
+            "type" : "number",
+            "description" : "Unit Price With Tax",
+            "example" : 100.51
+          },
+          "listPrice" : {
+            "type" : "number",
+            "description" : "List Price With Tax",
+            "example" : 100.51
+          },
+          "listPriceWithoutTax" : {
+            "type" : "number",
+            "description" : "List Price Without Tax",
+            "example" : 100.51
+          },
+          "listPriceTax" : {
+            "type" : "number",
+            "description" : "List Price Tax",
+            "example" : 56.89
+          },
+          "unitPriceWithoutTax" : {
+            "type" : "number",
+            "description" : "Unit Price Without Tax",
+            "example" : 100.51
+          },
+          "unitPriceTax" : {
+            "type" : "number",
+            "description" : "unit Price Tax",
+            "example" : 56.89
+          },
+          "priceInclusiveOfTax" : {
+            "type" : "boolean",
+            "description" : "is Price inclusive of Tax",
+            "example" : true
+          }
+        }
+      },
+      "OrderLineReservation" : {
+        "type" : "object",
+        "properties" : {
+          "nodeId" : {
+            "type" : "string",
+            "description" : "Node id",
+            "example" : "S108"
+          },
+          "nodeType" : {
+            "type" : "string",
+            "description" : "Node type",
+            "example" : "DC"
+          },
+          "fulfillmentType" : {
+            "type" : "string",
+            "description" : "Fulfillment Node Type",
+            "example" : "FnL_SHIP"
+          },
+          "cdcNode" : {
+            "type" : "string",
+            "description" : "cdc node",
+            "example" : "8044"
+          },
+          "nodeBusiness" : {
+            "type" : "string",
+            "description" : "Node Business"
+          },
+          "hobID" : {
+            "type" : "string",
+            "description" : "HOB ID"
+          },
+          "quantity" : {
+            "type" : "number",
+            "description" : "Reserved Qty",
+            "example" : 7
+          },
+          "reservationID" : {
+            "type" : "string",
+            "description" : "Reservation Id",
+            "example" : "133bfe33-6ced-4e61-99c2-fd177e2b5f40"
+          },
+          "date" : {
+            "type" : "string",
+            "description" : "date of reservation",
+            "example" : "2022-12-09T10:37:31.453+05:30"
+          },
+          "preferredPickupTime" : {
+            "type" : "string",
+            "description" : "Preferred Pickup Time"
+          },
+          "preferredDeliveryTime" : {
+            "type" : "string",
+            "description" : "Preferred Delivery Time"
+          },
+          "pickupFromStore" : {
+            "type" : "boolean",
+            "description" : "Pick From Store",
+            "example" : true
+          },
+          "dropAtStore" : {
+            "type" : "boolean",
+            "description" : "Drop At Store",
+            "example" : true
+          }
+        },
+        "description" : "Contains the reservation details or delivery plan"
+      },
+      "OrderLine" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "unqiue id for the orderline",
+            "example" : "9200c1a7-8b5a-41ce-8def-096de055db3a"
+          },
+          "primeLineNo" : {
+            "type" : "integer",
+            "description" : "Line Number of the order",
+            "format" : "int32",
+            "example" : 1
+          },
+          "subLineNo" : {
+            "type" : "integer",
+            "description" : "Line Number of the order",
+            "format" : "int32",
+            "example" : 1
+          },
+          "linetype" : {
+            "type" : "string",
+            "description" : "Line type",
+            "example" : "Product/Service/Adjustments"
+          },
+          "shipmentQuantity" : {
+            "type" : "integer",
+            "description" : "Shipment Quantity",
+            "format" : "int32"
+          },
+          "pendingQuantity" : {
+            "type" : "integer",
+            "description" : "Pending Quantity",
+            "format" : "int32"
+          },
+          "cancelledQuantity" : {
+            "type" : "integer",
+            "description" : "Cancelled Quantity",
+            "format" : "int32"
+          },
+          "originalOrderedQuantity" : {
+            "type" : "integer",
+            "description" : "Original Quantity",
+            "format" : "int32"
+          },
+          "invoicedQuantity" : {
+            "type" : "integer",
+            "description" : "Original Quantity",
+            "format" : "int32"
+          },
+          "itemId" : {
+            "type" : "string",
+            "description" : "Item ID",
+            "example" : "460407274003"
+          },
+          "departmentCode" : {
+            "type" : "string",
+            "description" : "Department Code",
+            "example" : "460407274003"
+          },
+          "giftWrap" : {
+            "type" : "boolean",
+            "description" : "gift wrap",
+            "example" : false
+          },
+          "productClass" : {
+            "type" : "string",
+            "description" : "product class",
+            "example" : "GOOD"
+          },
+          "uom" : {
+            "type" : "string",
+            "description" : "represents carrier account No",
+            "example" : "EACH"
+          },
+          "returnReason" : {
+            "type" : "string",
+            "description" : "Reason for Return",
+            "example" : "Order By Mistake"
+          },
+          "returnSubReason" : {
+            "type" : "string",
+            "description" : "Sub Reason for Return",
+            "example" : "Order By Mistake"
+          },
+          "batchID" : {
+            "type" : "string",
+            "description" : "Batch Id"
+          },
+          "lineStatus" : {
+            "type" : "string",
+            "description" : "status of the line",
+            "example" : "SURFACE"
+          },
+          "promiseShipDate" : {
+            "type" : "string",
+            "description" : "promise ship date",
+            "example" : "2024-03-21T00:00:00+05:30"
+          },
+          "promiseDeliveryDate" : {
+            "type" : "string",
+            "description" : "promise Delivery date",
+            "example" : "2024-03-25T00:00:00+05:30"
+          },
+          "productLine" : {
+            "type" : "string",
+            "description" : "Product line",
+            "example" : "830201001"
+          },
+          "shippingInstruction" : {
+            "type" : "string",
+            "description" : "Shipping Instruction",
+            "example" : "handle with care"
+          },
+          "comment" : {
+            "type" : "string",
+            "description" : "Comment",
+            "example" : "qwertyuiop"
+          },
+          "orderLinePrice" : {
+            "$ref" : "#/components/schemas/OrderLinePrice"
+          },
+          "orderLineCharge" : {
+            "type" : "array",
+            "description" : "Array of all associated line level taxes",
+            "items" : {
+              "$ref" : "#/components/schemas/OrderLineCharge"
+            }
+          },
+          "orderLineTax" : {
+            "type" : "array",
+            "description" : "Array of all associated line level taxes",
+            "items" : {
+              "$ref" : "#/components/schemas/OrderLineTax"
+            }
+          },
+          "orderLinePaymentReferences" : {
+            "type" : "array",
+            "description" : "Array of all associated payment",
+            "items" : {
+              "$ref" : "#/components/schemas/OrderLinePaymentReference"
+            }
+          },
+          "orderLineReservation" : {
+            "type" : "array",
+            "description" : "Array of all associated reservations",
+            "items" : {
+              "$ref" : "#/components/schemas/OrderLineReservation"
+            }
+          },
+          "orderLineItemDetails" : {
+            "$ref" : "#/components/schemas/OrderLineItemDetail"
+          },
+          "fulfillmentDates" : {
+            "type" : "array",
+            "description" : "Promise Dates to Customer",
+            "items" : {
+              "$ref" : "#/components/schemas/FulfillmentDate"
+            }
+          },
+          "lineStatusAudit" : {
+            "type" : "array",
+            "description" : "Line Status Audit Array",
+            "items" : {
+              "$ref" : "#/components/schemas/StatusAudit"
+            }
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        },
+        "description" : "List of fulfillment Order Lines"
+      },
+      "OrderLineTax" : {
+        "type" : "object",
+        "properties" : {
+          "category" : {
+            "type" : "string",
+            "description" : "Category",
+            "example" : "Price/Shipping"
+          },
+          "taxType" : {
+            "type" : "string",
+            "description" : "Tax Type like CGST/SGST/IGST/CESS/VAT",
+            "example" : "CGST"
+          },
+          "taxAmount" : {
+            "type" : "number",
+            "description" : "Tax Amount",
+            "example" : 20
+          },
+          "taxPercentage" : {
+            "type" : "number",
+            "description" : "Tax Percentage",
+            "example" : 12
+          }
+        }
+      },
+      "Party" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "customer-id/supplier-id",
+            "example" : "24e86225-66de-415d-8324-7237fb7965c7"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "online-customer/supplier type of Buyer",
+            "example" : "online-customer/supplier"
+          },
+          "subType" : {
+            "type" : "string",
+            "description" : "individual/company or organization",
+            "example" : "Herald"
+          },
+          "address" : {
+            "$ref" : "#/components/schemas/Address"
+          }
+        }
+      },
+      "Meta" : {
+        "type" : "object",
+        "additionalProperties" : {
+          "type" : "object",
+          "description" : "Meta for anything extra in json format",
+          "example" : "Meta"
+        },
+        "description" : "Meta",
+        "example" : {
+          "A" : "B",
+          "C" : "D"
+        }
+      },
+      "StatusAudit" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "status",
+            "example" : "Created"
+          },
+          "code" : {
+            "type" : "string",
+            "description" : "status",
+            "example" : "5001"
+          },
+          "reason" : {
+            "type" : "string",
+            "description" : "Reason for Cancellation/Hold",
+            "example" : "Hold"
+          },
+          "quantity" : {
+            "type" : "number",
+            "description" : "Quantity affected by status change",
+            "example" : 5
+          },
+          "date" : {
+            "type" : "string",
+            "description" : "timestamp of status change",
+            "example" : "2022-12-09T10:37:31.453+05:30"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        },
+        "description" : "Line Status Audit"
+      },
+      "OrderPayment" : {
+        "type" : "object",
+        "properties" : {
+          "paymentKey" : {
+            "type" : "string",
+            "description" : "Unique ID from Refund Service"
+          },
+          "currency" : {
+            "type" : "string",
+            "description" : "Currency",
+            "example" : "INR"
+          },
+          "paymentStatus" : {
+            "type" : "string",
+            "description" : "Status of Payment",
+            "example" : "PAID"
+          },
+          "paymentType" : {
+            "type" : "string",
+            "description" : "payment mode of the method",
+            "example" : "COD",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "collectedAmount" : {
+            "type" : "integer",
+            "description" : "Collected Amount",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "pendingAmount" : {
+            "type" : "integer",
+            "description" : "Amount to be collected from customer",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "redeemConversionRatio" : {
+            "type" : "string",
+            "description" : "Redeem Conversion Ratio",
+            "example" : "0",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "pointsBurned" : {
+            "type" : "string",
+            "description" : "Points Burned",
+            "example" : "0",
+            "xml" : {
+              "attribute" : true
+            }
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          },
+          "paymentDetails" : {
+            "$ref" : "#/components/schemas/OrderPayment_paymentDetails"
+          }
+        }
+      },
+      "Address_location" : {
+        "type" : "object",
+        "properties" : {
+          "latitude" : {
+            "type" : "string",
+            "description" : "Latitude",
+            "example" : "21.09"
+          },
+          "longitude" : {
+            "type" : "string",
+            "description" : "Longitude",
+            "example" : "34.56"
+          }
+        }
+      },
+      "OrderPayment_paymentDetails" : {
+        "type" : "object",
+        "properties" : {
+          "transactionStatus" : {
+            "type" : "string",
+            "description" : "payment transaction status",
+            "example" : "CONFIRMED"
+          },
+          "amount" : {
+            "type" : "string",
+            "description" : "payemnt amount",
+            "example" : "100.50"
+          },
+          "tranRequestTime" : {
+            "type" : "string",
+            "description" : "Transaction Request time",
+            "example" : "2023-05-17T11:19:38.209528"
+          },
+          "chargeType" : {
+            "type" : "string",
+            "description" : "Charge type",
+            "example" : "chargeType"
+          },
+          "paymentTxnReference" : {
+            "type" : "string",
+            "description" : "Payment Txn Reference",
+            "example" : "10062313760561696000"
+          },
+          "txnType" : {
+            "type" : "string",
+            "description" : "Transaction type",
+            "example" : "WA"
+          },
+          "subMerchantJioTxnRefNo" : {
+            "type" : "string",
+            "description" : "Sub Merchant Jio Txn Reference",
+            "example" : "0"
+          },
+          "responseMsg" : {
+            "type" : "string",
+            "description" : "Response Msg",
+            "example" : "APPROVED"
+          },
+          "creditCardNo" : {
+            "type" : "string",
+            "description" : "credit card no",
+            "example" : "PSobhMhIDAEe6zj0PNvcNfiA"
+          },
+          "creditCardName" : {
+            "type" : "string",
+            "description" : "name of the card",
+            "example" : "CARD"
+          },
+          "creditCardType" : {
+            "type" : "string",
+            "description" : "type of card",
+            "example" : "debit card"
+          },
+          "customerPONo" : {
+            "type" : "string",
+            "description" : "customer po no",
+            "example" : "pay_a1b7fe63-80c0-11ee-b38f-351dfe10c883"
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "xtenant" : {
+        "name" : "x-tenant",
+        "in" : "header",
+        "description" : "tenantId",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "AJIO"
+      },
+      "xsource" : {
+        "name" : "x-source",
+        "in" : "header",
+        "description" : "source system",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "FS"
+      },
+      "xdestination" : {
+        "name" : "x-destination",
+        "in" : "header",
+        "description" : "destination system",
+        "required" : false,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "fulfillment-service"
+      },
+      "xoperation" : {
+        "name" : "x-operation",
+        "in" : "header",
+        "description" : "type of operation/command",
+        "required" : false,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "shipmentRequest"
+      },
+      "xtype" : {
+        "name" : "x-type",
+        "in" : "header",
+        "description" : "additional optional information for opertation",
+        "required" : false,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "DC"
+      },
+      "xversion" : {
+        "name" : "x-version",
+        "in" : "header",
+        "description" : "version of payload",
+        "required" : false,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "v1"
+      },
+      "xsentat" : {
+        "name" : "x-sentat",
+        "in" : "header",
+        "required" : false,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string",
+          "description" : "Date and time when the message was sent.",
+          "example" : "2022-10-13T15:49:18+05:30"
+        }
+      },
+      "xreqid" : {
+        "name" : "x-reqid",
+        "in" : "header",
+        "description" : "any unique request id",
+        "required" : false,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "some-uuid"
+      }
+    }
+  }
+}
