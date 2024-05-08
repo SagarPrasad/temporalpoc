@@ -579,7 +579,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/StatusAudit"
+                  "$ref" : "#/components/schemas/GenericResponse"
                 }
               }
             }
@@ -749,7 +749,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Order"
+                  "$ref" : "#/components/schemas/Meta"
                 }
               }
             }
@@ -826,13 +826,24 @@
           },
           "example" : "some-uuid"
         } ],
+        "requestBody" : {
+          "description" : "Cancel Order Line Request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateShipment"
+              }
+            }
+          },
+          "required" : true
+        },
         "responses" : {
           "200" : {
-            "description" : "Returns the array of shipment against order",
+            "description" : "Success if the shipment is created successfully",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/CreateShipment"
+                  "$ref" : "#/components/schemas/GenericResponse"
                 }
               }
             }
@@ -927,7 +938,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Order"
+                  "$ref" : "#/components/schemas/Meta"
                 }
               }
             }
@@ -1022,7 +1033,102 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Order"
+                  "$ref" : "#/components/schemas/GenericResponse"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Order Doesn't Exists",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/frms/v1/orders/{orderNo}/shipments/{shipmentNo}/invoice" : {
+      "get" : {
+        "tags" : [ "Shipment" ],
+        "summary" : "Get Shipment Invoice",
+        "description" : "get the shipment invoice",
+        "operationId" : "getShipmentInvoice",
+        "parameters" : [ {
+          "name" : "orderNo",
+          "in" : "path",
+          "description" : "Order Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "shipmentNo",
+          "in" : "path",
+          "description" : "Shipment Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-tenant",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "x-version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "x-source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "x-reqid",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the array of shipment against order",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Meta"
                 }
               }
             }
@@ -2601,6 +2707,11 @@
             "description" : "Item Id number",
             "example" : "123494343"
           },
+          "qty" : {
+            "type" : "number",
+            "description" : "Number of items to be cancelled",
+            "example" : 2
+          },
           "reasoncode" : {
             "type" : "string",
             "description" : "reason codes (frms will not have any)",
@@ -2617,28 +2728,161 @@
       "CreateShipment" : {
         "type" : "object",
         "properties" : {
-          "primeLineNo" : {
+          "shipmentNo" : {
             "type" : "string",
-            "description" : "primeline num",
-            "example" : "1"
+            "description" : "shipment-number",
+            "example" : "10000245566"
           },
-          "itemId" : {
+          "forwardShipmentNo" : {
             "type" : "string",
-            "description" : "Item Id number",
+            "description" : "forward shipment number",
             "example" : "123494343"
           },
-          "reasoncode" : {
+          "externalShipmentNum" : {
             "type" : "string",
-            "description" : "reason codes (frms will not have any)",
-            "example" : "112343"
+            "description" : "External Shipment Number in case of Fynd",
+            "example" : "1298u3129030291813413"
           },
-          "reason" : {
+          "shipmentCreatedDate" : {
             "type" : "string",
-            "description" : "reason for cancellation",
-            "example" : "backorder or item doesnt fit"
+            "description" : "shipment created date",
+            "example" : "date"
+          },
+          "scac" : {
+            "type" : "string",
+            "description" : "carrier code",
+            "example" : "DELHIVERY"
+          },
+          "carrierServiceCode" : {
+            "type" : "string",
+            "description" : "carrier service code",
+            "example" : "SURFACE"
+          },
+          "freightTerms" : {
+            "type" : "string",
+            "description" : "freight Terms",
+            "example" : "COD/NONCOD"
+          },
+          "amountToBeCollected" : {
+            "type" : "number",
+            "description" : "amount to be collected",
+            "example" : 104.53
+          },
+          "trackingNo" : {
+            "type" : "string",
+            "description" : "tracking No or AWB Number",
+            "example" : "10000245566"
+          },
+          "trackingUrl" : {
+            "type" : "string",
+            "description" : "tracking url - derived one",
+            "example" : "http://bit.ly/ABCSDD"
+          },
+          "forwardTrackingNo" : {
+            "type" : "string",
+            "description" : "Forward AWB Number or tracking number",
+            "example" : "1234556"
+          },
+          "manifestNo" : {
+            "type" : "string",
+            "description" : "manifest number",
+            "example" : "12345555"
+          },
+          "nodeId" : {
+            "type" : "string",
+            "description" : "node ID",
+            "example" : "A027"
+          },
+          "nodeTaxPayerId" : {
+            "type" : "string",
+            "description" : "node tax payer id",
+            "example" : "05AAACA6460B2Z9"
+          },
+          "nodeType" : {
+            "type" : "string",
+            "description" : "node type",
+            "example" : "STORE/DC"
+          },
+          "shipmentSource" : {
+            "type" : "string",
+            "description" : "source of the shipment",
+            "example" : "CIS/HnM"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "shipment status",
+            "example" : "SHIPPED",
+            "enum" : [ "PACKED", "SHIPPED", "DELIVERED", "RTOED" ]
+          },
+          "orderLines" : {
+            "type" : "array",
+            "description" : "Shipment Order Lines",
+            "items" : {
+              "$ref" : "#/components/schemas/ShipmentLines"
+            }
+          },
+          "invoice" : {
+            "$ref" : "#/components/schemas/Invoice"
           }
         },
         "description" : "creating shipment at order level"
+      },
+      "ShipmentLines" : {
+        "type" : "object",
+        "properties" : {
+          "primeLineNo" : {
+            "type" : "string",
+            "description" : "prime line number",
+            "example" : "1"
+          },
+          "qty" : {
+            "type" : "number",
+            "description" : "item line qty",
+            "example" : 2
+          },
+          "itemId" : {
+            "type" : "string",
+            "description" : "ItemId",
+            "example" : "1234566777"
+          },
+          "shipmentCreatedDate" : {
+            "type" : "string",
+            "description" : "shipment created date",
+            "example" : "2022-10-18T15:30:39+05:30"
+          }
+        },
+        "description" : "creating shipment at order level"
+      },
+      "Invoice" : {
+        "type" : "object",
+        "properties" : {
+          "invoiceNo" : {
+            "type" : "string",
+            "description" : "invoice number",
+            "example" : "INV12345667"
+          },
+          "invoiceAmount" : {
+            "type" : "number",
+            "description" : "invoiced amount",
+            "example" : 200.34
+          },
+          "invoicedDate" : {
+            "type" : "string",
+            "description" : "invoiced date",
+            "example" : "2022-10-18T15:30:39+05:30"
+          },
+          "invoiceType" : {
+            "type" : "string",
+            "description" : "type of invoice",
+            "example" : "SALES/CREDIT/DEBIT"
+          },
+          "paymentType" : {
+            "type" : "string",
+            "description" : "mode of payment",
+            "example" : "COD"
+          }
+        },
+        "description" : "basic invoice details"
       },
       "Address_location" : {
         "type" : "object",
