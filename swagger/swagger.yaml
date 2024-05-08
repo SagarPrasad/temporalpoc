@@ -331,6 +331,102 @@
         }
       }
     },
+    "/frms/v1/orders/{orderNo}/cancel" : {
+      "post" : {
+        "tags" : [ "Order" ],
+        "summary" : "Cancellation of order lines ( Order / Shipment)",
+        "description" : "cancellation of order lines",
+        "operationId" : "cancelOrderLines",
+        "parameters" : [ {
+          "name" : "orderNo",
+          "in" : "path",
+          "description" : "Order Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-tenant",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "x-version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "x-source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "x-reqid",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "requestBody" : {
+          "description" : "Cancel Order Line Request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CancellationRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "order is accepted",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GenericResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Mandatory field Missing",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/frms/v1/orders/{orderNo}" : {
       "get" : {
         "tags" : [ "Order" ],
@@ -654,6 +750,89 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Order Doesn't Exists",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Shipment" ],
+        "summary" : "Create Shipments for Order",
+        "description" : "Create Shipments for the order",
+        "operationId" : "createOrderShipment",
+        "parameters" : [ {
+          "name" : "orderNo",
+          "in" : "path",
+          "description" : "Order Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-tenant",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "x-version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "x-source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "x-reqid",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the array of shipment against order",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CreateShipment"
                 }
               }
             }
@@ -2356,9 +2535,110 @@
             "type" : "string",
             "description" : "status of operation (optional)",
             "example" : "success"
+          },
+          "href" : {
+            "type" : "string",
+            "description" : "status of operation thru link for offline(optional)",
+            "example" : "http://somelink"
           }
         },
         "description" : "for generic response"
+      },
+      "CancellationRequest" : {
+        "type" : "object",
+        "properties" : {
+          "requestId" : {
+            "type" : "string",
+            "description" : "some unique identifier (optional)",
+            "example" : "12344-121212"
+          },
+          "orderNo" : {
+            "type" : "string",
+            "description" : "Mandatory if order number",
+            "example" : "FNA123456"
+          },
+          "orderType" : {
+            "type" : "string",
+            "description" : "Order Type",
+            "example" : "FORWARD"
+          },
+          "shipmentNo" : {
+            "type" : "string",
+            "description" : "Mandatory if shipment updates",
+            "example" : "10000345667"
+          },
+          "cancellationDate" : {
+            "type" : "string",
+            "description" : "time of cancellation from upstream system",
+            "example" : "2022-12-09T10:37:31.453+05:30"
+          },
+          "cancellationType" : {
+            "type" : "string",
+            "description" : "cancellation type",
+            "example" : "BUIS_CANCELLATION",
+            "enum" : [ "BUIS_CANCELLATION", "CUST_CANCELLATION" ]
+          },
+          "orderLines" : {
+            "type" : "array",
+            "description" : "Order Lines needs to be cancelled",
+            "items" : {
+              "$ref" : "#/components/schemas/CancellationOrderLines"
+            }
+          }
+        },
+        "description" : "for cancelling the order lines"
+      },
+      "CancellationOrderLines" : {
+        "type" : "object",
+        "properties" : {
+          "primeLineNo" : {
+            "type" : "string",
+            "description" : "primeline num",
+            "example" : "1"
+          },
+          "itemId" : {
+            "type" : "string",
+            "description" : "Item Id number",
+            "example" : "123494343"
+          },
+          "reasoncode" : {
+            "type" : "string",
+            "description" : "reason codes (frms will not have any)",
+            "example" : "112343"
+          },
+          "reason" : {
+            "type" : "string",
+            "description" : "reason for cancellation",
+            "example" : "backorder or item doesnt fit"
+          }
+        },
+        "description" : "for cancelling the order lines with reason"
+      },
+      "CreateShipment" : {
+        "type" : "object",
+        "properties" : {
+          "primeLineNo" : {
+            "type" : "string",
+            "description" : "primeline num",
+            "example" : "1"
+          },
+          "itemId" : {
+            "type" : "string",
+            "description" : "Item Id number",
+            "example" : "123494343"
+          },
+          "reasoncode" : {
+            "type" : "string",
+            "description" : "reason codes (frms will not have any)",
+            "example" : "112343"
+          },
+          "reason" : {
+            "type" : "string",
+            "description" : "reason for cancellation",
+            "example" : "backorder or item doesnt fit"
+          }
+        },
+        "description" : "creating shipment at order level"
       },
       "Address_location" : {
         "type" : "object",
