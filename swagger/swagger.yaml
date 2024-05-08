@@ -1,7 +1,7 @@
 {
   "openapi" : "3.0.3",
   "info" : {
-    "title" : "FRMS Order APIs - OpenAPI 3.0",
+    "title" : "FRMS Order Manage APIs - OpenAPI 3.0",
     "description" : "This is a high level api for the creating and managing order for SCM in Herald Platform.\n\nSome useful links:\n- [FRMS git repository](https://github.com/swagger-api/swagger-petstore)\n- [Sharepoint URL](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)",
     "termsOfService" : "http://swagger.io/terms/",
     "contact" : {
