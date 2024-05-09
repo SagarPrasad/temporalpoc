@@ -18,9 +18,9 @@
     "url" : "http://swagger.io"
   },
   "servers" : [ {
-    "url" : "https://api.jioscm-uat.jio.com/"
+    "url" : "https://api.jioscm-uat.jio.com"
   }, {
-    "url" : "https://api.jioscm-rep.jio.com/"
+    "url" : "https://api.jioscm-rep.jio.com"
   } ],
   "tags" : [ {
     "name" : "FRMS",
@@ -31,6 +31,57 @@
     }
   } ],
   "paths" : {
+    "/common-login-service/login" : {
+      "post" : {
+        "tags" : [ "Auth Service" ],
+        "summary" : "Platform team will create the user and onboard for different service like WB, FYND etc",
+        "description" : "Creating Token to make FRMS API calls",
+        "operationId" : "createToken",
+        "requestBody" : {
+          "description" : "Creating Token to make FRMS API calls",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/commonloginservice_login_body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "order is accepted",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "User not found",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "User not found",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/frms/v1/orders" : {
       "get" : {
         "tags" : [ "Order" ],
@@ -158,7 +209,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       },
       "post" : {
         "tags" : [ "Order" ],
@@ -242,7 +296,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       }
     },
     "/frms/v1/orders/status" : {
@@ -328,7 +385,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       }
     },
     "/frms/v1/orders/{orderNo}/cancel" : {
@@ -424,7 +484,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       }
     },
     "/frms/v1/orders/{orderNo}" : {
@@ -509,7 +572,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       }
     },
     "/frms/v1/orders/{orderNo}/status" : {
@@ -594,7 +660,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       }
     },
     "/frms/v1/orders/{orderNo}/orderline/status" : {
@@ -679,7 +748,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       }
     },
     "/frms/v1/orders/{orderNo}/shipments" : {
@@ -764,7 +836,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       },
       "post" : {
         "tags" : [ "Shipment" ],
@@ -858,7 +933,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       }
     },
     "/frms/v1/orders/{orderNo}/shipments/{shipmentNo}" : {
@@ -953,7 +1031,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       }
     },
     "/frms/v1/orders/{orderNo}/shipments/{shipmentNo}/status" : {
@@ -1048,7 +1129,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       }
     },
     "/frms/v1/orders/{orderNo}/shipments/{shipmentNo}/invoice" : {
@@ -1143,7 +1227,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       }
     }
   },
@@ -2884,6 +2971,71 @@
         },
         "description" : "basic invoice details"
       },
+      "commonloginservice_login_body" : {
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "username" : "dms_user",
+          "password" : "ASKDH%1212"
+        }
+      },
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string"
+          },
+          "result" : {
+            "$ref" : "#/components/schemas/inline_response_200_result"
+          }
+        },
+        "example" : {
+          "status" : "SUCCESS",
+          "result" : {
+            "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbHNJZCI6MzY2LCJzdWIiOiJDTFNfVVNFUiIsImxvZ2luVHlwZSI6IkJBQ0tFTkQiLCJpc3MiOiJjb21tb24tbG9naW4tc2VydmljZSIsInNlc3Npb25faWQiOiIwOTY1NjQxNzE1MTU3NDE4MTg4IiwicHJlZmVycmVkX3VzZXJuYW1lIjoib21zX3VzZXIiLCJ1c2VyVHlwZSI6IlNWQyIsInR5cGUiOiJCZWFyZXIgIiwiZXhwIjoxNzE1MTc5MDE4LCJpYXQiOjE3MTUxNTc0MTgsImlzX21hc3Rlcl9hZG1pbiI6ZmFsc2V9.4Q5dsd2LqmK8S5iWwKLmBNND8AvRX7Qo2uLTfudT87M",
+            "expiresAt" : "2024-05-08 20:06:58",
+            "refreshToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJDTFNfVVNFUiIsImlzcyI6ImNvbW1vbi1sb2dpbi1zZXJ2aWNlIiwic2Vzc2lvbl9pZCI6IjA5NjU2NDE3MTUxNTc0MTgxODgiLCJ0eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNTIwMDY3OCwiaWF0IjoxNzE1MTU3NDE4fQ.U6GU2fDq1OuWCiXt5MZ_C9kKFJVSbpuTFECsCekk0bA",
+            "refreshExpiresAt" : "2024-05-09 02:07:58"
+          }
+        }
+      },
+      "inline_response_400" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "example" : "FAIL"
+          },
+          "errors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_400_errors"
+            }
+          }
+        }
+      },
+      "inline_response_401" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "example" : "FAIL"
+          },
+          "errors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_401_errors"
+            }
+          }
+        }
+      },
       "Address_location" : {
         "type" : "object",
         "properties" : {
@@ -2961,6 +3113,49 @@
             "type" : "string",
             "description" : "customer po no",
             "example" : "pay_a1b7fe63-80c0-11ee-b38f-351dfe10c883"
+          }
+        }
+      },
+      "inline_response_200_result" : {
+        "type" : "object",
+        "properties" : {
+          "accessToken" : {
+            "type" : "string"
+          },
+          "expiresAt" : {
+            "type" : "string"
+          },
+          "refreshToken" : {
+            "type" : "string"
+          },
+          "refreshExpiresAt" : {
+            "type" : "string"
+          }
+        }
+      },
+      "inline_response_400_errors" : {
+        "type" : "object",
+        "properties" : {
+          "errorCode" : {
+            "type" : "string",
+            "example" : "400.002"
+          },
+          "errorDescription" : {
+            "type" : "string",
+            "example" : "User oms_users not found"
+          }
+        }
+      },
+      "inline_response_401_errors" : {
+        "type" : "object",
+        "properties" : {
+          "errorCode" : {
+            "type" : "string",
+            "example" : "401"
+          },
+          "errorDescription" : {
+            "type" : "string",
+            "example" : "Unauthorized Exception : Wrong Password | Attempt remaining: 3"
           }
         }
       }
@@ -3061,6 +3256,20 @@
           "type" : "string"
         },
         "example" : "some-uuid"
+      }
+    },
+    "securitySchemes" : {
+      "OAuth2" : {
+        "type" : "oauth2",
+        "flows" : {
+          "authorizationCode" : {
+            "authorizationUrl" : "/common-login-service/login",
+            "tokenUrl" : "/common-login-service/login",
+            "scopes" : {
+              "read" : "Grants read access"
+            }
+          }
+        }
       }
     }
   }
