@@ -1432,54 +1432,6 @@
               "attribute" : true
             }
           },
-          "clusterManagerName" : {
-            "type" : "string",
-            "description" : "Cluster Manager Name",
-            "example" : "Ambani"
-          },
-          "clusterManagerContact" : {
-            "type" : "number",
-            "description" : "Cluster Manager Contact",
-            "example" : 1234567890
-          },
-          "clusterManagerEmail" : {
-            "type" : "string",
-            "description" : "Cluster Manager Email",
-            "example" : "Ambani@ril.com"
-          },
-          "storeManagerName" : {
-            "type" : "string",
-            "description" : "Store Manager Name",
-            "example" : "Ambani"
-          },
-          "storeManagerContact" : {
-            "type" : "string",
-            "description" : "Store Manager Contact",
-            "example" : "Ambani"
-          },
-          "storeManagerEmail" : {
-            "type" : "string",
-            "description" : "Store Manager Email",
-            "example" : "Ambani"
-          },
-          "customerName" : {
-            "type" : "string",
-            "description" : "name of customer",
-            "example" : "TEST MID 55042675"
-          },
-          "storeName" : {
-            "type" : "string",
-            "description" : "B2B Store name",
-            "example" : "TEST MID 55042675"
-          },
-          "storeType" : {
-            "type" : "string",
-            "description" : "Store type",
-            "example" : "B2B",
-            "xml" : {
-              "attribute" : true
-            }
-          },
           "gstTradeName" : {
             "type" : "string",
             "description" : "GST Trade name",
@@ -1626,10 +1578,40 @@
             "description" : "for Return orders only",
             "example" : "FNA9400005418"
           },
+          "enterpriseCode" : {
+            "type" : "string",
+            "description" : "enterprise description",
+            "example" : "FnL"
+          },
+          "parenteEnterpriseCode" : {
+            "type" : "string",
+            "description" : "For return orders only",
+            "example" : "FnL"
+          },
+          "sellerOrganizationCode" : {
+            "type" : "string",
+            "description" : "Seller Organization code",
+            "example" : "FnL"
+          },
           "ParenteEnterpriseCode" : {
             "type" : "string",
             "description" : "For return orders only",
             "example" : "FnL"
+          },
+          "channel" : {
+            "type" : "string",
+            "description" : "sales channel for the order",
+            "example" : "ajio app/zivame/amazon/flipkart/whatsapp"
+          },
+          "subChannel" : {
+            "type" : "string",
+            "description" : "sales sub channel for the order",
+            "example" : "yet to be decided"
+          },
+          "device" : {
+            "type" : "string",
+            "description" : "optional-device on which order is taken",
+            "example" : "iphone/andriod/chrome"
           },
           "allocationRuleID" : {
             "type" : "string",
@@ -1644,7 +1626,7 @@
           "tenantId" : {
             "type" : "string",
             "description" : "tenant for this order",
-            "example" : "AJIOB2C"
+            "example" : "AJIOB2C/AJIOB2B/JIOMART"
           },
           "subTenant" : {
             "type" : "string",
@@ -1708,6 +1690,10 @@
           "costCenter" : {
             "type" : "string",
             "description" : "Cost Center related to PO order"
+          },
+          "clientId" : {
+            "type" : "string",
+            "description" : "client Id (po related)"
           },
           "vendorSKUCode" : {
             "type" : "string",
@@ -2436,16 +2422,6 @@
             "description" : "status of the line",
             "example" : "SURFACE"
           },
-          "promiseShipDate" : {
-            "type" : "string",
-            "description" : "promise ship date",
-            "example" : "2024-03-21T00:00:00+05:30"
-          },
-          "promiseDeliveryDate" : {
-            "type" : "string",
-            "description" : "promise Delivery date",
-            "example" : "2024-03-25T00:00:00+05:30"
-          },
           "productLine" : {
             "type" : "string",
             "description" : "Product line",
@@ -2509,11 +2485,34 @@
               "$ref" : "#/components/schemas/StatusAudit"
             }
           },
+          "itemVendor" : {
+            "$ref" : "#/components/schemas/ItemVendor"
+          },
           "meta" : {
             "$ref" : "#/components/schemas/Meta"
           }
         },
         "description" : "List of fulfillment Order Lines"
+      },
+      "ItemVendor" : {
+        "type" : "object",
+        "properties" : {
+          "thirdParty" : {
+            "type" : "boolean",
+            "description" : "is this 3rd party item",
+            "example" : true
+          },
+          "sellerId" : {
+            "type" : "string",
+            "description" : "if thirdParty is true fill",
+            "example" : "1234566"
+          },
+          "sellername" : {
+            "type" : "string",
+            "description" : "if thirdParty is true fill",
+            "example" : "HnM"
+          }
+        }
       },
       "OrderLineTax" : {
         "type" : "object",
@@ -2558,8 +2557,22 @@
             "description" : "individual/company or organization",
             "example" : "Herald"
           },
+          "rating" : {
+            "type" : "string",
+            "description" : "can be customer or party rating",
+            "example" : "4"
+          },
+          "cohort" : {
+            "type" : "string",
+            "description" : "belongs to which cohort",
+            "example" : "HIGH_SPENDER"
+          },
           "address" : {
-            "$ref" : "#/components/schemas/Address"
+            "type" : "array",
+            "description" : "Address array of different addressType like ShipTo/BillTo",
+            "items" : {
+              "$ref" : "#/components/schemas/Address"
+            }
           }
         }
       },
