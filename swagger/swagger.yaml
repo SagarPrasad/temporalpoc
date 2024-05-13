@@ -1699,11 +1699,6 @@
             "type" : "string",
             "description" : "Vendor SKU Code related to PO order"
           },
-          "invoiceSystem" : {
-            "type" : "string",
-            "description" : "New Invoice System",
-            "example" : "New Invoice Service"
-          },
           "fulfillmentSystem" : {
             "type" : "string",
             "description" : "Sterling/FS",
@@ -1712,6 +1707,11 @@
           "priorityCode" : {
             "type" : "integer",
             "format" : "int32"
+          },
+          "prebookOrderEvent" : {
+            "type" : "string",
+            "description" : "whether it is prebook event order",
+            "example" : "DIWALI"
           },
           "status" : {
             "type" : "string",
@@ -2258,6 +2258,11 @@
             "type" : "boolean",
             "description" : "is Price inclusive of Tax",
             "example" : true
+          },
+          "componentUnitPrice" : {
+            "type" : "number",
+            "description" : "individual component price",
+            "example" : 5.89
           }
         }
       },
@@ -2376,6 +2381,11 @@
           "invoicedQuantity" : {
             "type" : "integer",
             "description" : "Original Quantity",
+            "format" : "int32"
+          },
+          "componentQuantity" : {
+            "type" : "integer",
+            "description" : "Component Quantity (Ratio Pack )",
             "format" : "int32"
           },
           "itemId" : {
