@@ -1583,11 +1583,6 @@
             "description" : "enterprise description",
             "example" : "FnL"
           },
-          "parenteEnterpriseCode" : {
-            "type" : "string",
-            "description" : "For return orders only",
-            "example" : "FnL"
-          },
           "sellerOrganizationCode" : {
             "type" : "string",
             "description" : "Seller Organization code",
@@ -1752,11 +1747,7 @@
             }
           },
           "OrderPaymentDetails" : {
-            "type" : "array",
-            "description" : "Array of all order payment mop",
-            "items" : {
-              "$ref" : "#/components/schemas/OrderPayment"
-            }
+            "$ref" : "#/components/schemas/OrderPayment"
           },
           "OrderStatusAudit" : {
             "type" : "array",
@@ -2692,7 +2683,11 @@
             "$ref" : "#/components/schemas/Meta"
           },
           "paymentDetails" : {
-            "$ref" : "#/components/schemas/OrderPayment_paymentDetails"
+            "type" : "array",
+            "description" : "Array of all order lines",
+            "items" : {
+              "$ref" : "#/components/schemas/PaymentDetails"
+            }
           }
         }
       },
@@ -2994,6 +2989,71 @@
         },
         "description" : "basic invoice details"
       },
+      "PaymentDetails" : {
+        "type" : "object",
+        "properties" : {
+          "transactionStatus" : {
+            "type" : "string",
+            "description" : "payment transaction status",
+            "example" : "CONFIRMED"
+          },
+          "amount" : {
+            "type" : "string",
+            "description" : "payemnt amount",
+            "example" : "100.50"
+          },
+          "tranRequestTime" : {
+            "type" : "string",
+            "description" : "Transaction Request time",
+            "example" : "2023-05-17T11:19:38.209528"
+          },
+          "chargeType" : {
+            "type" : "string",
+            "description" : "Charge type",
+            "example" : "chargeType"
+          },
+          "paymentTxnReference" : {
+            "type" : "string",
+            "description" : "Payment Txn Reference",
+            "example" : "10062313760561696000"
+          },
+          "txnType" : {
+            "type" : "string",
+            "description" : "Transaction type",
+            "example" : "WA"
+          },
+          "subMerchantJioTxnRefNo" : {
+            "type" : "string",
+            "description" : "Sub Merchant Jio Txn Reference",
+            "example" : "0"
+          },
+          "responseMsg" : {
+            "type" : "string",
+            "description" : "Response Msg",
+            "example" : "APPROVED"
+          },
+          "creditCardNo" : {
+            "type" : "string",
+            "description" : "credit card no",
+            "example" : "PSobhMhIDAEe6zj0PNvcNfiA"
+          },
+          "creditCardName" : {
+            "type" : "string",
+            "description" : "name of the card",
+            "example" : "CARD"
+          },
+          "creditCardType" : {
+            "type" : "string",
+            "description" : "type of card",
+            "example" : "debit card"
+          },
+          "customerPONo" : {
+            "type" : "string",
+            "description" : "customer po no",
+            "example" : "pay_a1b7fe63-80c0-11ee-b38f-351dfe10c883"
+          }
+        }
+      },
       "commonloginservice_login_body" : {
         "type" : "object",
         "properties" : {
@@ -3071,71 +3131,6 @@
             "type" : "string",
             "description" : "Longitude",
             "example" : "34.56"
-          }
-        }
-      },
-      "OrderPayment_paymentDetails" : {
-        "type" : "object",
-        "properties" : {
-          "transactionStatus" : {
-            "type" : "string",
-            "description" : "payment transaction status",
-            "example" : "CONFIRMED"
-          },
-          "amount" : {
-            "type" : "string",
-            "description" : "payemnt amount",
-            "example" : "100.50"
-          },
-          "tranRequestTime" : {
-            "type" : "string",
-            "description" : "Transaction Request time",
-            "example" : "2023-05-17T11:19:38.209528"
-          },
-          "chargeType" : {
-            "type" : "string",
-            "description" : "Charge type",
-            "example" : "chargeType"
-          },
-          "paymentTxnReference" : {
-            "type" : "string",
-            "description" : "Payment Txn Reference",
-            "example" : "10062313760561696000"
-          },
-          "txnType" : {
-            "type" : "string",
-            "description" : "Transaction type",
-            "example" : "WA"
-          },
-          "subMerchantJioTxnRefNo" : {
-            "type" : "string",
-            "description" : "Sub Merchant Jio Txn Reference",
-            "example" : "0"
-          },
-          "responseMsg" : {
-            "type" : "string",
-            "description" : "Response Msg",
-            "example" : "APPROVED"
-          },
-          "creditCardNo" : {
-            "type" : "string",
-            "description" : "credit card no",
-            "example" : "PSobhMhIDAEe6zj0PNvcNfiA"
-          },
-          "creditCardName" : {
-            "type" : "string",
-            "description" : "name of the card",
-            "example" : "CARD"
-          },
-          "creditCardType" : {
-            "type" : "string",
-            "description" : "type of card",
-            "example" : "debit card"
-          },
-          "customerPONo" : {
-            "type" : "string",
-            "description" : "customer po no",
-            "example" : "pay_a1b7fe63-80c0-11ee-b38f-351dfe10c883"
           }
         }
       },
