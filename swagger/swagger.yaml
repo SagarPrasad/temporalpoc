@@ -1869,10 +1869,6 @@
             "description" : "product line of the Item",
             "example" : "830904002"
           },
-          "shortDesc" : {
-            "type" : "string",
-            "example" : "some short desc"
-          },
           "eanNo" : {
             "type" : "string",
             "description" : "The ECCN number of an item(ean number).",
@@ -2427,6 +2423,16 @@
             "type" : "string",
             "description" : "Product line",
             "example" : "830201001"
+          },
+          "shipmentId" : {
+            "type" : "string",
+            "description" : "FS Shipping ID",
+            "example" : "FS10012345512"
+          },
+          "externalShipmentId" : {
+            "type" : "string",
+            "description" : "Fynd/Zivame Shipping ID",
+            "example" : "uuid-uuid-uuid"
           },
           "shippingInstruction" : {
             "type" : "string",
