@@ -144,7 +144,7 @@
           },
           "example" : "2022-10-13T15:49:18+05:30"
         }, {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -177,7 +177,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -220,7 +220,7 @@
         "description" : "Create Different Types of Order Like Sales Order/ Purchase Order",
         "operationId" : "createOrder",
         "parameters" : [ {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -253,7 +253,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -309,7 +309,7 @@
         "description" : "Update the order status at different level",
         "operationId" : "statusUpdate",
         "parameters" : [ {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -342,7 +342,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -408,7 +408,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -441,7 +441,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -507,7 +507,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -540,7 +540,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -595,7 +595,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -628,7 +628,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -683,7 +683,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -716,7 +716,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -771,7 +771,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -804,7 +804,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -857,7 +857,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -890,7 +890,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -966,7 +966,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -999,7 +999,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -1064,7 +1064,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -1097,7 +1097,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -1162,7 +1162,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "x-tenant",
+          "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
           "required" : true,
@@ -1195,7 +1195,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-reqid",
+          "name" : "x-request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -2730,6 +2730,13 @@
             "type" : "string",
             "description" : "Mandatory if order number",
             "example" : "FNA123456"
+          },
+          "lines" : {
+            "type" : "array",
+            "description" : "Order Lines needs to be cancelled",
+            "items" : {
+              "$ref" : "#/components/schemas/CancellationOrderLines"
+            }
           }
         },
         "description" : "contract for updating shipment or order status in FRMS"
@@ -2813,6 +2820,11 @@
             "example" : "123494343"
           },
           "qty" : {
+            "type" : "number",
+            "description" : "Current number of ordered items",
+            "example" : 2
+          },
+          "cancelledQty" : {
             "type" : "number",
             "description" : "Number of items to be cancelled",
             "example" : 2
@@ -3180,7 +3192,7 @@
     },
     "parameters" : {
       "xtenant" : {
-        "name" : "x-tenant",
+        "name" : "tenantId",
         "in" : "header",
         "description" : "tenantId",
         "required" : true,
@@ -3264,7 +3276,7 @@
         }
       },
       "xreqid" : {
-        "name" : "x-reqid",
+        "name" : "x-request-id",
         "in" : "header",
         "description" : "any unique request id",
         "required" : false,
