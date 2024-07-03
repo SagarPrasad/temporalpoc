@@ -54,7 +54,16 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
+                  "$ref" : "#/components/schemas/SuccessResponse"
+                },
+                "example" : {
+                  "status" : "SUCCESS",
+                  "result" : {
+                    "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbHNJZCI6MzY2LCJzdWIiOiJDTFNfVVNFUiIsImxvZ2luVHlwZSI6IkJBQ0tFTkQiLCJpc3MiOiJjb21tb24tbG9naW4tc2VydmljZSIsInNlc3Npb25faWQiOiIwOTY1NjQxNzE1MTU3NDE4MTg4IiwicHJlZmVycmVkX3VzZXJuYW1lIjoib21zX3VzZXIiLCJ1c2VyVHlwZSI6IlNWQyIsInR5cGUiOiJCZWFyZXIgIiwiZXhwIjoxNzE1MTc5MDE4LCJpYXQiOjE3MTUxNTc0MTgsImlzX21hc3Rlcl9hZG1pbiI6ZmFsc2V9.4Q5dsd2LqmK8S5iWwKLmBNND8AvRX7Qo2uLTfudT87M",
+                    "expiresAt" : "2024-05-08 20:06:58",
+                    "refreshToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJDTFNfVVNFUiIsImlzcyI6ImNvbW1vbi1sb2dpbi1zZXJ2aWNlIiwic2Vzc2lvbl9pZCI6IjA5NjU2NDE3MTUxNTc0MTgxODgiLCJ0eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNTIwMDY3OCwiaWF0IjoxNzE1MTU3NDE4fQ.U6GU2fDq1OuWCiXt5MZ_C9kKFJVSbpuTFECsCekk0bA",
+                    "refreshExpiresAt" : "2024-05-09 02:07:58"
+                  }
                 }
               }
             }
@@ -62,19 +71,33 @@
           "400" : {
             "description" : "User not found",
             "content" : {
-              "applicaton/json" : {
+              "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_400"
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                },
+                "example" : {
+                  "status" : "FAIL",
+                  "errors" : [ {
+                    "errorCode" : "400.002",
+                    "errorDescription" : "User oms_users not found"
+                  } ]
                 }
               }
             }
           },
           "401" : {
-            "description" : "User not found",
+            "description" : "Unauthorized",
             "content" : {
-              "applicaton/json" : {
+              "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_401"
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                },
+                "example" : {
+                  "status" : "FAIL",
+                  "errors" : [ {
+                    "errorCode" : "401",
+                    "errorDescription" : "Unauthorized Exception : Wrong Password | Attempt remaining: 3"
+                  } ]
                 }
               }
             }
@@ -743,7 +766,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/OrderLine"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/OrderLine"
+                  }
                 }
               }
             }
@@ -916,7 +942,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/CreateShipment"
+                "$ref" : "#/components/schemas/Shipment"
               }
             }
           },
@@ -1246,12 +1272,54 @@
   },
   "components" : {
     "schemas" : {
+      "SuccessResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string"
+          },
+          "result" : {
+            "$ref" : "#/components/schemas/AuthResult"
+          }
+        }
+      },
+      "AuthResult" : {
+        "type" : "object",
+        "properties" : {
+          "accessToken" : {
+            "type" : "string"
+          },
+          "expiresAt" : {
+            "type" : "string"
+          },
+          "refreshToken" : {
+            "type" : "string"
+          },
+          "refreshExpiresAt" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string"
+          },
+          "errors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Error"
+            }
+          }
+        }
+      },
       "OrderCreateResponse" : {
         "type" : "object",
         "properties" : {
           "status" : {
             "type" : "string",
-            "enum" : [ "accepted", "processing", "placed", "delivered", "cancelled", "partially delivered", "hold" ]
+            "enum" : [ "ACCEPTED", "PROCESSING", "PLACED", "DELIVERED", "CANCELLED", "PARTIALLY DELIVERED", "HOLD" ]
           },
           "orderNo" : {
             "type" : "string",
@@ -1261,12 +1329,7 @@
           "orderId" : {
             "type" : "string",
             "description" : "FRMS Order unique id",
-            "example" : "123e4567-e89b-12d3-a456-426614174000"
-          },
-          "href" : {
-            "type" : "string",
-            "description" : "URL for the order status",
-            "example" : "https://api-uat.scm.com/frms/v1/order/{orderNo}/status"
+            "format" : "uuid"
           }
         }
       },
@@ -1276,7 +1339,7 @@
           "addressId" : {
             "type" : "string",
             "description" : "Address Id",
-            "example" : "9200c1a7-8b5a-41ce-8def-096de055db3a"
+            "format" : "uuid"
           },
           "externalAddressId" : {
             "type" : "string",
@@ -1503,7 +1566,7 @@
       "FulfillmentDate" : {
         "type" : "object",
         "properties" : {
-          "dateType" : {
+          "type" : {
             "type" : "string",
             "description" : "Order Date/Estimated Delivery Date/Promised Ship Date/Revised Ship Date/Promised Delivery Date/Revised Promised Delivery Date/Hold Till Date/Estimated Refund Date/Revised Estimated Refund Date/Promised Pickup Date/Revised Promised Pickup Date",
             "example" : "promiseShipDate"
@@ -1517,6 +1580,9 @@
             "type" : "string",
             "description" : "date reason",
             "example" : "Some Sample"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
           }
         },
         "description" : "Dates"
@@ -1526,7 +1592,8 @@
         "properties" : {
           "name" : {
             "type" : "string",
-            "example" : "deliveryFee / codFee / platformFee / priorityFee/ returnFee"
+            "description" : "The type of order fee. Possible values include: * `deliveryFee` * `codFee` * `platformFee` * `priorityFee` * `returnFee`\n",
+            "example" : "deliveryFee"
           },
           "enabled" : {
             "type" : "boolean",
@@ -1605,8 +1672,8 @@
           },
           "channel" : {
             "type" : "string",
-            "description" : "sales channel for the order",
-            "example" : "ajio app/zivame/amazon/flipkart/whatsapp"
+            "description" : "The sales channel where the order originated.  Examples include: `AJIOAPP`, `ZIVAME`, `AJIOWEB`, etc.\n",
+            "example" : "AJIOAPP"
           },
           "subChannel" : {
             "type" : "string",
@@ -1742,24 +1809,24 @@
           "seller" : {
             "$ref" : "#/components/schemas/Party"
           },
-          "OrderLines" : {
+          "orderLines" : {
             "type" : "array",
             "description" : "Array of all order lines",
             "items" : {
               "$ref" : "#/components/schemas/OrderLine"
             }
           },
-          "OrderFees" : {
+          "orderFees" : {
             "type" : "array",
             "description" : "Array of all order fees",
             "items" : {
               "$ref" : "#/components/schemas/OrderFee"
             }
           },
-          "OrderPaymentDetails" : {
+          "orderPaymentDetails" : {
             "$ref" : "#/components/schemas/OrderPayment"
           },
-          "OrderStatusAudit" : {
+          "orderStatusAudits" : {
             "type" : "array",
             "description" : "Array of all order lines",
             "items" : {
@@ -1771,27 +1838,27 @@
       "OrderLineCharge" : {
         "type" : "object",
         "properties" : {
-          "chargeAmount" : {
+          "amount" : {
             "type" : "number",
             "description" : "discount amount",
             "example" : 1.29
           },
-          "chargeCategory" : {
+          "category" : {
             "type" : "string",
             "description" : "category of the charge",
             "example" : "Shipping/Promotion/SELLER_PROMO"
           },
-          "chargeName" : {
+          "type" : {
             "type" : "string",
             "description" : "Charge Name",
             "example" : "Shipping"
           },
-          "chargePerLine" : {
+          "perLine" : {
             "type" : "number",
             "description" : "charge per line",
             "example" : 10.02
           },
-          "chargePerUnit" : {
+          "perUnit" : {
             "type" : "number",
             "description" : "charge per unit",
             "example" : 13.9
@@ -1820,6 +1887,31 @@
             "type" : "boolean",
             "description" : "is Shipping Charge",
             "example" : true
+          }
+        }
+      },
+      "OrderLineTax" : {
+        "type" : "object",
+        "properties" : {
+          "category" : {
+            "type" : "string",
+            "description" : "Category",
+            "example" : "Price/Shipping"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "Tax Type like CGST/SGST/IGST/CESS/VAT",
+            "example" : "CGST"
+          },
+          "amount" : {
+            "type" : "number",
+            "description" : "Tax Amount",
+            "example" : 20
+          },
+          "percentage" : {
+            "type" : "number",
+            "description" : "Tax Percentage",
+            "example" : 12
           }
         }
       },
@@ -2336,7 +2428,7 @@
           "id" : {
             "type" : "string",
             "description" : "unqiue id for the orderline",
-            "example" : "9200c1a7-8b5a-41ce-8def-096de055db3a"
+            "format" : "uuid"
           },
           "primeLineNo" : {
             "type" : "integer",
@@ -2457,14 +2549,14 @@
           "orderLinePrice" : {
             "$ref" : "#/components/schemas/OrderLinePrice"
           },
-          "orderLineCharge" : {
+          "orderLineCharges" : {
             "type" : "array",
             "description" : "Array of all associated line level taxes",
             "items" : {
               "$ref" : "#/components/schemas/OrderLineCharge"
             }
           },
-          "orderLineTax" : {
+          "orderLineTaxes" : {
             "type" : "array",
             "description" : "Array of all associated line level taxes",
             "items" : {
@@ -2478,14 +2570,14 @@
               "$ref" : "#/components/schemas/OrderLinePaymentReference"
             }
           },
-          "orderLineReservation" : {
+          "orderLineReservations" : {
             "type" : "array",
             "description" : "Array of all associated reservations",
             "items" : {
               "$ref" : "#/components/schemas/OrderLineReservation"
             }
           },
-          "orderLineItemDetails" : {
+          "orderLineItemDetail" : {
             "$ref" : "#/components/schemas/OrderLineItemDetail"
           },
           "fulfillmentDates" : {
@@ -2495,7 +2587,7 @@
               "$ref" : "#/components/schemas/FulfillmentDate"
             }
           },
-          "lineStatusAudit" : {
+          "lineStatusAudits" : {
             "type" : "array",
             "description" : "Line Status Audit Array",
             "items" : {
@@ -2531,38 +2623,13 @@
           }
         }
       },
-      "OrderLineTax" : {
-        "type" : "object",
-        "properties" : {
-          "category" : {
-            "type" : "string",
-            "description" : "Category",
-            "example" : "Price/Shipping"
-          },
-          "taxType" : {
-            "type" : "string",
-            "description" : "Tax Type like CGST/SGST/IGST/CESS/VAT",
-            "example" : "CGST"
-          },
-          "taxAmount" : {
-            "type" : "number",
-            "description" : "Tax Amount",
-            "example" : 20
-          },
-          "taxPercentage" : {
-            "type" : "number",
-            "description" : "Tax Percentage",
-            "example" : 12
-          }
-        }
-      },
       "Party" : {
         "type" : "object",
         "properties" : {
           "id" : {
             "type" : "string",
-            "description" : "customer-id/supplier-id",
-            "example" : "24e86225-66de-415d-8324-7237fb7965c7"
+            "description" : "Customer ID / Supplier ID",
+            "format" : "uuid"
           },
           "type" : {
             "type" : "string",
@@ -2584,7 +2651,7 @@
             "description" : "belongs to which cohort",
             "example" : "HIGH_SPENDER"
           },
-          "address" : {
+          "addresses" : {
             "type" : "array",
             "description" : "Address array of different addressType like ShipTo/BillTo",
             "items" : {
@@ -2596,14 +2663,27 @@
       "Meta" : {
         "type" : "object",
         "additionalProperties" : {
-          "type" : "object",
-          "description" : "Meta for anything extra in json format",
-          "example" : "Meta"
+          "oneOf" : [ {
+            "type" : "string"
+          }, {
+            "type" : "number"
+          }, {
+            "type" : "boolean"
+          }, {
+            "type" : "object"
+          }, {
+            "type" : "array"
+          } ]
         },
-        "description" : "Meta",
+        "description" : "A flexible object to store any additional metadata.\nValues can be strings, numbers, booleans, objects, or arrays.\n",
         "example" : {
-          "A" : "B",
-          "C" : "D"
+          "stringValue" : "Some text",
+          "numberValue" : 12345,
+          "booleanValue" : true,
+          "objectValue" : {
+            "nestedKey" : "nested value"
+          },
+          "arrayValue" : [ "item1", "item2" ]
         }
       },
       "StatusAudit" : {
@@ -2702,7 +2782,7 @@
             "type" : "array",
             "description" : "Array of all order lines",
             "items" : {
-              "$ref" : "#/components/schemas/PaymentDetails"
+              "$ref" : "#/components/schemas/PaymentDetail"
             }
           }
         }
@@ -2751,7 +2831,7 @@
             "type" : "array",
             "description" : "Order Lines needs to be cancelled",
             "items" : {
-              "$ref" : "#/components/schemas/CancellationOrderLines"
+              "$ref" : "#/components/schemas/CancellationOrderLine"
             }
           }
         },
@@ -2809,20 +2889,20 @@
           "cancellationType" : {
             "type" : "string",
             "description" : "cancellation type",
-            "example" : "BUIS_CANCELLATION",
-            "enum" : [ "BUIS_CANCELLATION", "CUST_CANCELLATION" ]
+            "example" : "BUSSINESS",
+            "enum" : [ "BUSSINESS", "CUSTOMER" ]
           },
           "orderLines" : {
             "type" : "array",
             "description" : "Order Lines needs to be cancelled",
             "items" : {
-              "$ref" : "#/components/schemas/CancellationOrderLines"
+              "$ref" : "#/components/schemas/CancellationOrderLine"
             }
           }
         },
         "description" : "for cancelling the order lines"
       },
-      "CancellationOrderLines" : {
+      "CancellationOrderLine" : {
         "type" : "object",
         "properties" : {
           "primeLineNo" : {
@@ -2858,7 +2938,7 @@
         },
         "description" : "for cancelling the order lines with reason"
       },
-      "CreateShipment" : {
+      "Shipment" : {
         "type" : "object",
         "properties" : {
           "shipmentNo" : {
@@ -2951,7 +3031,7 @@
             "type" : "array",
             "description" : "Shipment Order Lines",
             "items" : {
-              "$ref" : "#/components/schemas/ShipmentLines"
+              "$ref" : "#/components/schemas/ShipmentLine"
             }
           },
           "invoice" : {
@@ -2960,7 +3040,7 @@
         },
         "description" : "creating shipment at order level"
       },
-      "ShipmentLines" : {
+      "ShipmentLine" : {
         "type" : "object",
         "properties" : {
           "primeLineNo" : {
@@ -3017,7 +3097,7 @@
         },
         "description" : "basic invoice details"
       },
-      "PaymentDetails" : {
+      "PaymentDetail" : {
         "type" : "object",
         "properties" : {
           "transactionStatus" : {
@@ -3086,7 +3166,7 @@
         "type" : "array",
         "description" : "Array of all orders with basic details",
         "items" : {
-          "$ref" : "#/components/schemas/OrderLine"
+          "$ref" : "#/components/schemas/Order"
         }
       },
       "commonloginservice_login_body" : {
@@ -3104,56 +3184,6 @@
           "password" : "ASKDH%1212"
         }
       },
-      "inline_response_200" : {
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "type" : "string"
-          },
-          "result" : {
-            "$ref" : "#/components/schemas/inline_response_200_result"
-          }
-        },
-        "example" : {
-          "status" : "SUCCESS",
-          "result" : {
-            "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbHNJZCI6MzY2LCJzdWIiOiJDTFNfVVNFUiIsImxvZ2luVHlwZSI6IkJBQ0tFTkQiLCJpc3MiOiJjb21tb24tbG9naW4tc2VydmljZSIsInNlc3Npb25faWQiOiIwOTY1NjQxNzE1MTU3NDE4MTg4IiwicHJlZmVycmVkX3VzZXJuYW1lIjoib21zX3VzZXIiLCJ1c2VyVHlwZSI6IlNWQyIsInR5cGUiOiJCZWFyZXIgIiwiZXhwIjoxNzE1MTc5MDE4LCJpYXQiOjE3MTUxNTc0MTgsImlzX21hc3Rlcl9hZG1pbiI6ZmFsc2V9.4Q5dsd2LqmK8S5iWwKLmBNND8AvRX7Qo2uLTfudT87M",
-            "expiresAt" : "2024-05-08 20:06:58",
-            "refreshToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJDTFNfVVNFUiIsImlzcyI6ImNvbW1vbi1sb2dpbi1zZXJ2aWNlIiwic2Vzc2lvbl9pZCI6IjA5NjU2NDE3MTUxNTc0MTgxODgiLCJ0eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNTIwMDY3OCwiaWF0IjoxNzE1MTU3NDE4fQ.U6GU2fDq1OuWCiXt5MZ_C9kKFJVSbpuTFECsCekk0bA",
-            "refreshExpiresAt" : "2024-05-09 02:07:58"
-          }
-        }
-      },
-      "inline_response_400" : {
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "type" : "string",
-            "example" : "FAIL"
-          },
-          "errors" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/inline_response_400_errors"
-            }
-          }
-        }
-      },
-      "inline_response_401" : {
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "type" : "string",
-            "example" : "FAIL"
-          },
-          "errors" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/inline_response_401_errors"
-            }
-          }
-        }
-      },
       "Address_location" : {
         "type" : "object",
         "properties" : {
@@ -3166,49 +3196,6 @@
             "type" : "string",
             "description" : "Longitude",
             "example" : "34.56"
-          }
-        }
-      },
-      "inline_response_200_result" : {
-        "type" : "object",
-        "properties" : {
-          "accessToken" : {
-            "type" : "string"
-          },
-          "expiresAt" : {
-            "type" : "string"
-          },
-          "refreshToken" : {
-            "type" : "string"
-          },
-          "refreshExpiresAt" : {
-            "type" : "string"
-          }
-        }
-      },
-      "inline_response_400_errors" : {
-        "type" : "object",
-        "properties" : {
-          "errorCode" : {
-            "type" : "string",
-            "example" : "400.002"
-          },
-          "errorDescription" : {
-            "type" : "string",
-            "example" : "User oms_users not found"
-          }
-        }
-      },
-      "inline_response_401_errors" : {
-        "type" : "object",
-        "properties" : {
-          "errorCode" : {
-            "type" : "string",
-            "example" : "401"
-          },
-          "errorDescription" : {
-            "type" : "string",
-            "example" : "Unauthorized Exception : Wrong Password | Attempt remaining: 3"
           }
         }
       }
