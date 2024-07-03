@@ -194,7 +194,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Order"
+                  "$ref" : "#/components/schemas/Orders"
                 }
               }
             }
@@ -666,13 +666,23 @@
         } ]
       }
     },
-    "/frms/v1/orders/{orderNo}/orderline/status" : {
+    "/frms/v1/orders/{orderNo}/orderline/{orderLine}/status" : {
       "get" : {
         "tags" : [ "Order" ],
         "summary" : "Get Order Line Status (OSM)",
         "description" : "Get Order Line Status",
         "operationId" : "getOrderLineStatus",
         "parameters" : [ {
+          "name" : "orderLine",
+          "in" : "path",
+          "description" : "Order Line number (primeline)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
           "name" : "orderNo",
           "in" : "path",
           "description" : "Order Number to be fetched",
@@ -733,7 +743,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/StatusAudit"
+                  "$ref" : "#/components/schemas/OrderLine"
                 }
               }
             }
@@ -3070,6 +3080,13 @@
             "description" : "customer po no",
             "example" : "pay_a1b7fe63-80c0-11ee-b38f-351dfe10c883"
           }
+        }
+      },
+      "Orders" : {
+        "type" : "array",
+        "description" : "Array of all orders with basic details",
+        "items" : {
+          "$ref" : "#/components/schemas/OrderLine"
         }
       },
       "commonloginservice_login_body" : {
