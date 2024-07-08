@@ -178,7 +178,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -189,7 +189,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -200,7 +200,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -254,7 +254,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -265,7 +265,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -276,7 +276,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -343,7 +343,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -354,7 +354,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -365,7 +365,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -442,7 +442,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -453,7 +453,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -464,7 +464,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -541,7 +541,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -552,7 +552,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -563,7 +563,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -629,7 +629,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -640,7 +640,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -651,7 +651,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -727,7 +727,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -738,7 +738,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -749,7 +749,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -818,7 +818,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -829,7 +829,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -840,7 +840,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -904,7 +904,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -915,7 +915,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -926,7 +926,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -1013,7 +1013,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -1024,7 +1024,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -1035,7 +1035,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -1111,7 +1111,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -1122,7 +1122,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -1133,7 +1133,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -1209,7 +1209,7 @@
           },
           "example" : "AJIO"
         }, {
-          "name" : "x-version",
+          "name" : "version",
           "in" : "header",
           "description" : "version of payload",
           "required" : false,
@@ -1220,7 +1220,7 @@
           },
           "example" : "v1"
         }, {
-          "name" : "x-source",
+          "name" : "source",
           "in" : "header",
           "description" : "source system",
           "required" : true,
@@ -1231,7 +1231,7 @@
           },
           "example" : "FS"
         }, {
-          "name" : "x-request-id",
+          "name" : "request-id",
           "in" : "header",
           "description" : "any unique request id",
           "required" : false,
@@ -1620,6 +1620,11 @@
             "description" : "Order Number from Source system",
             "example" : "10842349428349"
           },
+          "customerId" : {
+            "type" : "string",
+            "description" : "Unique ID to represent Customer",
+            "example" : "123e4567-e89b-12d3-a456-426614174000"
+          },
           "orderNo" : {
             "type" : "string",
             "description" : "Customer Order Number or Purchase Order Number",
@@ -1665,7 +1670,7 @@
             "description" : "Seller Organization code",
             "example" : "FnL"
           },
-          "ParenteEnterpriseCode" : {
+          "parentEnterpriseCode" : {
             "type" : "string",
             "description" : "For return orders only",
             "example" : "FnL"
@@ -1685,7 +1690,7 @@
             "description" : "optional-device on which order is taken",
             "example" : "iphone/andriod/chrome"
           },
-          "allocationRuleID" : {
+          "allocationRuleId" : {
             "type" : "string",
             "description" : "Allocation Rule ID",
             "example" : "SCH_Fnl"
@@ -1720,12 +1725,17 @@
             "description" : "source identifier of the order",
             "example" : "createorder"
           },
+          "voucherCode" : {
+            "type" : "string",
+            "description" : "Voucher Code used for Gift Vouchers.",
+            "example" : "RIL20"
+          },
           "paymentMode" : {
             "type" : "string",
             "description" : "payment type of the order",
             "example" : "NONCOD"
           },
-          "PaymentRuleID" : {
+          "paymentRuleId" : {
             "type" : "string",
             "description" : "Payment Rule ID",
             "example" : "PAY_RULE_FnL"
@@ -1755,7 +1765,7 @@
             "type" : "string",
             "description" : "Price List Configuration related to PO order"
           },
-          "purchasingReferenceid" : {
+          "purchasingReferenceId" : {
             "type" : "string",
             "description" : "Purchasing Reference id related to PO order"
           },
@@ -1823,8 +1833,11 @@
               "$ref" : "#/components/schemas/OrderFee"
             }
           },
-          "orderPaymentDetails" : {
-            "$ref" : "#/components/schemas/OrderPayment"
+          "orderPaymentMethods" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/OrderPaymentMethod"
+            }
           },
           "orderStatusAudits" : {
             "type" : "array",
@@ -1838,10 +1851,20 @@
       "OrderLineCharge" : {
         "type" : "object",
         "properties" : {
+          "amountType" : {
+            "type" : "string",
+            "description" : "Type of Amount",
+            "example" : "Charge"
+          },
           "amount" : {
             "type" : "number",
             "description" : "discount amount",
             "example" : 1.29
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "name of the charge",
+            "example" : "VoucherDiscount"
           },
           "category" : {
             "type" : "string",
@@ -1893,6 +1916,11 @@
       "OrderLineTax" : {
         "type" : "object",
         "properties" : {
+          "amountType" : {
+            "type" : "string",
+            "description" : "Type of amount",
+            "example" : "Tax"
+          },
           "category" : {
             "type" : "string",
             "description" : "Category",
@@ -1927,7 +1955,7 @@
             "description" : "Seller SKU ID",
             "example" : "B2C_JIT_0709_S5_99"
           },
-          "desc" : {
+          "description" : {
             "type" : "string",
             "example" : "someItemDesc"
           },
@@ -1951,10 +1979,15 @@
             "description" : "Catalog Name",
             "example" : "luxuryProductCatalog"
           },
-          "class" : {
+          "itemClass" : {
             "type" : "string",
-            "description" : "Item / Product class",
+            "description" : "Item class",
             "example" : "GOOD"
+          },
+          "expiryDate" : {
+            "type" : "string",
+            "description" : "Item Expiry Date",
+            "example" : "2022-12-09T10:37:31.453+05:30"
           },
           "uom" : {
             "type" : "string",
@@ -2004,7 +2037,7 @@
             "description" : "Tax product Code of an item",
             "example" : "61041300"
           },
-          "reportingHSNCode" : {
+          "reportingHsnCode" : {
             "type" : "string",
             "description" : "Reporting HSNCode of an item",
             "example" : "61041300"
@@ -2024,7 +2057,7 @@
             "description" : "Manufacture Name -Source OMS",
             "example" : "ManufactureName"
           },
-          "imageURL" : {
+          "imageUrl" : {
             "type" : "string",
             "description" : "Image URL -Source OMS",
             "example" : "Image URL"
@@ -2034,7 +2067,7 @@
             "description" : "PDP Image URL -Source OMS",
             "example" : "Image URL"
           },
-          "imageThumbnailURL" : {
+          "imageThumbnailUrl" : {
             "type" : "string",
             "description" : "PDP Image URL -Source OMS",
             "example" : "Image URL"
@@ -2368,11 +2401,6 @@
             "description" : "Node type",
             "example" : "DC"
           },
-          "fulfillmentType" : {
-            "type" : "string",
-            "description" : "Fulfillment Node Type",
-            "example" : "FnL_SHIP"
-          },
           "cdcNode" : {
             "type" : "string",
             "description" : "cdc node",
@@ -2382,7 +2410,7 @@
             "type" : "string",
             "description" : "Node Business"
           },
-          "hobID" : {
+          "hobId" : {
             "type" : "string",
             "description" : "HOB ID"
           },
@@ -2391,7 +2419,7 @@
             "description" : "Reserved Qty",
             "example" : 7
           },
-          "reservationID" : {
+          "reservationId" : {
             "type" : "string",
             "description" : "Reservation Id",
             "example" : "133bfe33-6ced-4e61-99c2-fd177e2b5f40"
@@ -2442,7 +2470,7 @@
             "format" : "int32",
             "example" : 1
           },
-          "linetype" : {
+          "lineType" : {
             "type" : "string",
             "description" : "Line type",
             "example" : "Product/Service/Adjustments"
@@ -2464,18 +2492,53 @@
           },
           "originalOrderedQuantity" : {
             "type" : "integer",
-            "description" : "Original Quantity",
+            "description" : "Original Ordered Quantity",
+            "format" : "int32"
+          },
+          "orderedQuantity" : {
+            "type" : "integer",
+            "description" : "Ordered Quantity",
             "format" : "int32"
           },
           "invoicedQuantity" : {
             "type" : "integer",
-            "description" : "Original Quantity",
+            "description" : "Invoiced Quantity",
             "format" : "int32"
           },
           "componentQuantity" : {
             "type" : "integer",
             "description" : "Component Quantity (Ratio Pack )",
             "format" : "int32"
+          },
+          "carrierServiceCode" : {
+            "type" : "string",
+            "description" : "carrier service code",
+            "example" : "SURFACE"
+          },
+          "carrierAccountNo" : {
+            "type" : "string",
+            "description" : "Represents carrier account No",
+            "example" : "8765432109"
+          },
+          "scac" : {
+            "type" : "string",
+            "description" : "carrier code",
+            "example" : "DELHIVERY"
+          },
+          "fulfillmentType" : {
+            "type" : "string",
+            "description" : "Fulfillment Node Type",
+            "example" : "FnL_SHIP"
+          },
+          "deliveryMethod" : {
+            "type" : "string",
+            "description" : "Delivery Method",
+            "example" : "SHP"
+          },
+          "shipmentMethod" : {
+            "type" : "string",
+            "description" : "Shipment Method",
+            "example" : "SURFACE"
           },
           "itemId" : {
             "type" : "string",
@@ -2497,11 +2560,6 @@
             "description" : "product class",
             "example" : "GOOD"
           },
-          "uom" : {
-            "type" : "string",
-            "description" : "represents carrier account No",
-            "example" : "EACH"
-          },
           "returnReason" : {
             "type" : "string",
             "description" : "Reason for Return",
@@ -2512,7 +2570,7 @@
             "description" : "Sub Reason for Return",
             "example" : "Order By Mistake"
           },
-          "batchID" : {
+          "batchId" : {
             "type" : "string",
             "description" : "Batch Id"
           },
@@ -2720,9 +2778,34 @@
         },
         "description" : "Line Status Audit"
       },
-      "OrderPayment" : {
+      "OrderPaymentMethod" : {
         "type" : "object",
         "properties" : {
+          "transactionReference" : {
+            "type" : "string",
+            "description" : "Payment Transaction Reference",
+            "example" : "10062313760561696000"
+          },
+          "cardNo" : {
+            "type" : "string",
+            "description" : "credit/debit card no",
+            "example" : "PSobhMhIDAEe6zj0PNvcNfiA"
+          },
+          "cardName" : {
+            "type" : "string",
+            "description" : "name of the card",
+            "example" : "CARD"
+          },
+          "cardType" : {
+            "type" : "string",
+            "description" : "type of card",
+            "example" : "debit card"
+          },
+          "customerPurchaseOrderNumber" : {
+            "type" : "string",
+            "description" : "Customer Purchase Order Number",
+            "example" : "pay_a1b7fe63-80c0-11ee-b38f-351dfe10c883"
+          },
           "paymentKey" : {
             "type" : "string",
             "description" : "Unique ID from Refund Service"
@@ -2907,12 +2990,12 @@
         "properties" : {
           "primeLineNo" : {
             "type" : "string",
-            "description" : "primeline num",
+            "description" : "Prime Line Number",
             "example" : "1"
           },
           "itemId" : {
             "type" : "string",
-            "description" : "Item Id number",
+            "description" : "Item Identification Number",
             "example" : "123494343"
           },
           "qty" : {
@@ -2943,15 +3026,15 @@
         "properties" : {
           "shipmentNo" : {
             "type" : "string",
-            "description" : "shipment-number",
+            "description" : "Shipment Number",
             "example" : "10000245566"
           },
           "forwardShipmentNo" : {
             "type" : "string",
-            "description" : "forward shipment number",
+            "description" : "Forward Shipment Number",
             "example" : "123494343"
           },
-          "externalShipmentNum" : {
+          "externalShipmentNo" : {
             "type" : "string",
             "description" : "External Shipment Number in case of Fynd",
             "example" : "1298u3129030291813413"
@@ -2960,6 +3043,11 @@
             "type" : "string",
             "description" : "shipment created date",
             "example" : "date"
+          },
+          "fulfillmentType" : {
+            "type" : "string",
+            "description" : "Fulfillment Type",
+            "example" : "FnL_SHIP"
           },
           "scac" : {
             "type" : "string",
@@ -2983,12 +3071,12 @@
           },
           "trackingNo" : {
             "type" : "string",
-            "description" : "tracking No or AWB Number",
+            "description" : "Tracking No or AWB Number",
             "example" : "10000245566"
           },
           "trackingUrl" : {
             "type" : "string",
-            "description" : "tracking url - derived one",
+            "description" : "Tracking url - Derived one",
             "example" : "http://bit.ly/ABCSDD"
           },
           "forwardTrackingNo" : {
@@ -3107,7 +3195,12 @@
           },
           "amount" : {
             "type" : "string",
-            "description" : "payemnt amount",
+            "description" : "payment/request amount",
+            "example" : "100.50"
+          },
+          "processedAmount" : {
+            "type" : "string",
+            "description" : "processed amount",
             "example" : "100.50"
           },
           "tranRequestTime" : {
@@ -3120,11 +3213,6 @@
             "description" : "Charge type",
             "example" : "chargeType"
           },
-          "paymentTxnReference" : {
-            "type" : "string",
-            "description" : "Payment Txn Reference",
-            "example" : "10062313760561696000"
-          },
           "txnType" : {
             "type" : "string",
             "description" : "Transaction type",
@@ -3135,30 +3223,10 @@
             "description" : "Sub Merchant Jio Txn Reference",
             "example" : "0"
           },
-          "responseMsg" : {
+          "responseMessage" : {
             "type" : "string",
-            "description" : "Response Msg",
+            "description" : "Response Message",
             "example" : "APPROVED"
-          },
-          "creditCardNo" : {
-            "type" : "string",
-            "description" : "credit card no",
-            "example" : "PSobhMhIDAEe6zj0PNvcNfiA"
-          },
-          "creditCardName" : {
-            "type" : "string",
-            "description" : "name of the card",
-            "example" : "CARD"
-          },
-          "creditCardType" : {
-            "type" : "string",
-            "description" : "type of card",
-            "example" : "debit card"
-          },
-          "customerPONo" : {
-            "type" : "string",
-            "description" : "customer po no",
-            "example" : "pay_a1b7fe63-80c0-11ee-b38f-351dfe10c883"
           }
         }
       },
@@ -3201,7 +3269,7 @@
       }
     },
     "parameters" : {
-      "xtenant" : {
+      "tenant" : {
         "name" : "tenantId",
         "in" : "header",
         "description" : "tenantId",
@@ -3213,8 +3281,8 @@
         },
         "example" : "AJIO"
       },
-      "xsource" : {
-        "name" : "x-source",
+      "source" : {
+        "name" : "source",
         "in" : "header",
         "description" : "source system",
         "required" : true,
@@ -3225,8 +3293,8 @@
         },
         "example" : "FS"
       },
-      "xdestination" : {
-        "name" : "x-destination",
+      "destination" : {
+        "name" : "destination",
         "in" : "header",
         "description" : "destination system",
         "required" : false,
@@ -3237,8 +3305,8 @@
         },
         "example" : "fulfillment-service"
       },
-      "xoperation" : {
-        "name" : "x-operation",
+      "operation" : {
+        "name" : "operation",
         "in" : "header",
         "description" : "type of operation/command",
         "required" : false,
@@ -3249,8 +3317,8 @@
         },
         "example" : "shipmentRequest"
       },
-      "xtype" : {
-        "name" : "x-type",
+      "type" : {
+        "name" : "type",
         "in" : "header",
         "description" : "additional optional information for opertation",
         "required" : false,
@@ -3261,8 +3329,8 @@
         },
         "example" : "DC"
       },
-      "xversion" : {
-        "name" : "x-version",
+      "version" : {
+        "name" : "version",
         "in" : "header",
         "description" : "version of payload",
         "required" : false,
@@ -3273,8 +3341,8 @@
         },
         "example" : "v1"
       },
-      "xsentat" : {
-        "name" : "x-sentat",
+      "sentAt" : {
+        "name" : "sent-at",
         "in" : "header",
         "required" : false,
         "style" : "simple",
@@ -3285,8 +3353,8 @@
           "example" : "2022-10-13T15:49:18+05:30"
         }
       },
-      "xreqid" : {
-        "name" : "x-request-id",
+      "reqId" : {
+        "name" : "request-id",
         "in" : "header",
         "description" : "any unique request id",
         "required" : false,
