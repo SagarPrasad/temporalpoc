@@ -1630,6 +1630,26 @@
             "description" : "Customer Order Number or Purchase Order Number",
             "example" : "FNA1300005611"
           },
+          "refOrderNo" : {
+            "type" : "string",
+            "description" : "Referenced Order No",
+            "example" : "FNA1300005612"
+          },
+          "refOrderType" : {
+            "type" : "string",
+            "description" : "Referenced Order Type",
+            "example" : "ForwardOrder"
+          },
+          "refShipmentNo" : {
+            "type" : "string",
+            "description" : "Referenced Shipment No",
+            "example" : "10231920321"
+          },
+          "refShipmentType" : {
+            "type" : "string",
+            "description" : "Referenced Shipment Type",
+            "example" : "ForwardShipment"
+          },
           "orderDate" : {
             "type" : "string",
             "description" : "Created Order Date captured by source system",
@@ -1637,13 +1657,23 @@
           },
           "orderType" : {
             "type" : "string",
-            "description" : "Order Type",
-            "example" : "SALES/PO"
+            "description" : "Order Type. Examples include: `SALES`, `PO`, etc.\n",
+            "example" : "SALES"
           },
           "orderSubType" : {
             "type" : "string",
-            "description" : "sub order type",
-            "example" : "FORWARD/RETURN/EXCHANGE"
+            "description" : "The sub order type. Examples include: `FORWARD`, `RETURN`, `EXCHANGE`, etc.\n",
+            "example" : "FORWARD"
+          },
+          "returnType" : {
+            "type" : "string",
+            "description" : "The return order type. Examples include: `RTO`, `RVP`, `SelfShip`, etc.\n",
+            "example" : "RVP"
+          },
+          "returnOption" : {
+            "type" : "string",
+            "description" : "The option for return. Examples include: `DSR`, `NONDSR`, etc.\n",
+            "example" : "NONDSR"
           },
           "orderTotalAmount" : {
             "type" : "number",
@@ -1687,8 +1717,8 @@
           },
           "device" : {
             "type" : "string",
-            "description" : "optional-device on which order is taken",
-            "example" : "iphone/andriod/chrome"
+            "description" : "Device from which order is taken. Examples include: `iPhone`, `Android`, etc.\n",
+            "example" : "iPhone"
           },
           "allocationRuleId" : {
             "type" : "string",
@@ -1702,8 +1732,8 @@
           },
           "tenantId" : {
             "type" : "string",
-            "description" : "tenant for this order",
-            "example" : "AJIOB2C/AJIOB2B/JIOMART"
+            "description" : "Tenant for this order. Examples include: `AJIOB2C`, `AJIOB2B`, `JIOMART`, etc.\n",
+            "example" : "AJIOB2C"
           },
           "subTenant" : {
             "type" : "string",
@@ -1783,7 +1813,7 @@
           },
           "fulfillmentSystem" : {
             "type" : "string",
-            "description" : "Sterling/FS",
+            "description" : "Fulfillment System used for this order.  Examples include: `Sterling`, `FS`, etc.\n",
             "example" : "FS"
           },
           "priorityCode" : {
@@ -2104,7 +2134,7 @@
             "type" : "string",
             "description" : "Season"
           },
-          "qcRwquirement" : {
+          "qcRequirement" : {
             "type" : "boolean",
             "description" : "QC Requirement",
             "example" : true
@@ -2346,6 +2376,11 @@
             "description" : "Max Retail Price",
             "example" : 100.51
           },
+          "itemPrice" : {
+            "type" : "number",
+            "description" : "Item Price for Purchase Order",
+            "example" : 100.51
+          },
           "unitPrice" : {
             "type" : "number",
             "description" : "Unit Price With Tax",
@@ -2544,6 +2579,11 @@
             "type" : "string",
             "description" : "Item ID",
             "example" : "460407274003"
+          },
+          "returnItemId" : {
+            "type" : "string",
+            "description" : "Return Item ID",
+            "example" : "460407274004"
           },
           "departmentCode" : {
             "type" : "string",
