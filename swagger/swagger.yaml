@@ -1449,7 +1449,7 @@
           },
           "commercialAddress" : {
             "type" : "boolean",
-            "description" : "commerical Address",
+            "description" : "Is it a commercial Address?",
             "example" : false
           },
           "alternateContact" : {
@@ -1603,6 +1603,9 @@
             "type" : "number",
             "description" : "Delivery Fee value",
             "example" : 30
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
           }
         }
       },
@@ -1940,6 +1943,9 @@
             "type" : "boolean",
             "description" : "is Shipping Charge",
             "example" : true
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
           }
         }
       },
@@ -1970,6 +1976,9 @@
             "type" : "number",
             "description" : "Tax Percentage",
             "example" : 12
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
           }
         }
       },
@@ -1984,6 +1993,11 @@
             "type" : "string",
             "description" : "Seller SKU ID",
             "example" : "B2C_JIT_0709_S5_99"
+          },
+          "commercialType" : {
+            "type" : "string",
+            "description" : "Commercial Type",
+            "example" : "SOR"
           },
           "description" : {
             "type" : "string",
@@ -2003,6 +2017,12 @@
             "type" : "string",
             "description" : "Item Group Code",
             "example" : "PROD"
+          },
+          "componentCount" : {
+            "type" : "integer",
+            "description" : "no of components",
+            "format" : "int32",
+            "example" : 1
           },
           "catalogName" : {
             "type" : "string",
@@ -2159,6 +2179,9 @@
           },
           "flag" : {
             "$ref" : "#/components/schemas/ItemFlag"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
           }
         }
       },
@@ -2245,9 +2268,14 @@
             "description" : "is Gift",
             "example" : true
           },
-          "allowGiftWrap" : {
+          "giftWrapAllowed" : {
             "type" : "boolean",
-            "description" : "Allow Gift Wrap",
+            "description" : "Is Gift Wrap Allowed?",
+            "example" : true
+          },
+          "serialized" : {
+            "type" : "boolean",
+            "description" : "Is it Serialized?",
             "example" : true
           }
         }
@@ -2310,17 +2338,6 @@
             "description" : "size code of the Item",
             "example" : "FreeSize"
           },
-          "serialized" : {
-            "type" : "boolean",
-            "description" : "size code of the Item",
-            "example" : true
-          },
-          "componentCount" : {
-            "type" : "integer",
-            "description" : "no of components",
-            "format" : "int32",
-            "example" : 1
-          },
           "countryOfOrigin" : {
             "type" : "string",
             "description" : "COO",
@@ -2360,6 +2377,9 @@
           "includedInLineTotal" : {
             "type" : "integer",
             "description" : "Included Amount in the line total"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
           }
         }
       },
@@ -2481,6 +2501,9 @@
             "type" : "boolean",
             "description" : "Drop At Store",
             "example" : true
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
           }
         },
         "description" : "Contains the reservation details or delivery plan"
@@ -2595,6 +2618,11 @@
             "description" : "gift wrap",
             "example" : false
           },
+          "promotionTender" : {
+            "type" : "string",
+            "description" : "Promotion tender",
+            "example" : "910234"
+          },
           "productClass" : {
             "type" : "string",
             "description" : "product class",
@@ -2617,7 +2645,7 @@
           "lineStatus" : {
             "type" : "string",
             "description" : "status of the line",
-            "example" : "SURFACE"
+            "example" : "CREATED"
           },
           "productLine" : {
             "type" : "string",
