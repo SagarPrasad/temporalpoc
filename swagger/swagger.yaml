@@ -2169,10 +2169,21 @@
             "description" : "Sampling Ratio",
             "example" : "1:10 or 1:20 or"
           },
+          "countryOfOrigin" : {
+            "type" : "string",
+            "description" : "Country of Origin",
+            "example" : "IN"
+          },
+          "noOfSecondarySerials" : {
+            "type" : "integer",
+            "description" : "Secondary serials",
+            "format" : "int32",
+            "example" : 0
+          },
           "itemType" : {
             "type" : "string",
-            "description" : "Item Type",
-            "example" : "consumable/sellable"
+            "description" : "Item Type. Examples include: `Consumable`, `Sellable`, `Luxary`, etc.\n",
+            "example" : "Luxury"
           },
           "dimension" : {
             "$ref" : "#/components/schemas/ItemDimension"
@@ -2338,26 +2349,10 @@
             "description" : "size code of the Item",
             "example" : "FreeSize"
           },
-          "countryOfOrigin" : {
-            "type" : "string",
-            "description" : "COO",
-            "example" : "IN"
-          },
           "sizeFormat" : {
             "type" : "string",
             "description" : "size Format of the Item",
             "example" : "US"
-          },
-          "noOfSecondarySerials" : {
-            "type" : "integer",
-            "description" : "Secondary serials",
-            "format" : "int32",
-            "example" : 0
-          },
-          "itemType" : {
-            "type" : "string",
-            "description" : "itemType serials",
-            "example" : "Lux"
           }
         }
       },
