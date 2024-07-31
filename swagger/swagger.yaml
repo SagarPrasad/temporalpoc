@@ -1268,6 +1268,127 @@
           "OAuth2" : [ "read the token from auth service" ]
         } ]
       }
+    },
+    "/frms/v1/orders/{orderNo}/shipments/{shipmentNo}/document" : {
+      "get" : {
+        "tags" : [ "Shipment" ],
+        "summary" : "Get Shipment Invoice Or Shipping Label",
+        "description" : "get the shipment invoice or shippinglabel document",
+        "operationId" : "getShipmentDocument",
+        "parameters" : [ {
+          "name" : "orderNo",
+          "in" : "path",
+          "description" : "Order Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "shipmentNo",
+          "in" : "path",
+          "description" : "Shipment Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "docType",
+          "in" : "query",
+          "description" : "Shipment Number to be fetched",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "invoice or shippinglabel"
+        }, {
+          "name" : "base64encode",
+          "in" : "query",
+          "description" : "output in base64encoded or bytes",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "default value is true"
+        }, {
+          "name" : "tenantId",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "request-id",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Returns the array of shipment against order",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "sasdasdasd=="
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Order or Shipment Doesn't Exists",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
+      }
     }
   },
   "components" : {
@@ -3187,6 +3308,9 @@
           },
           "invoice" : {
             "$ref" : "#/components/schemas/Invoice"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
           }
         },
         "description" : "creating shipment at order level"
@@ -3239,6 +3363,16 @@
             "type" : "string",
             "description" : "type of invoice",
             "example" : "SALES/CREDIT/DEBIT"
+          },
+          "invoiceURL" : {
+            "type" : "string",
+            "description" : "url to fetch the invoice document",
+            "example" : "https://<host>/invoice/invoiceNum"
+          },
+          "shippingLableURL" : {
+            "type" : "string",
+            "description" : "url to fetch the shipping label document",
+            "example" : "https://<host>/shiplabel/invoiceNum"
           },
           "paymentType" : {
             "type" : "string",
