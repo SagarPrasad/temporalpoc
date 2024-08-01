@@ -3208,6 +3208,11 @@
       "Shipment" : {
         "type" : "object",
         "properties" : {
+          "orderNo" : {
+            "type" : "string",
+            "description" : "Order Number",
+            "example" : "FNA12345445"
+          },
           "shipmentNo" : {
             "type" : "string",
             "description" : "Shipment Number",
