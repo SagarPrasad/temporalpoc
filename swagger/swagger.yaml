@@ -606,6 +606,16 @@
         "description" : "Allow api to update MOP / address till certain status",
         "operationId" : "updateOrder",
         "parameters" : [ {
+          "name" : "orderNo",
+          "in" : "path",
+          "description" : "Order Number to be fetched",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
           "name" : "tenantId",
           "in" : "header",
           "description" : "tenantId",
