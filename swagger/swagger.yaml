@@ -599,6 +599,93 @@
         "security" : [ {
           "OAuth2" : [ "read the token from auth service" ]
         } ]
+      },
+      "put" : {
+        "tags" : [ "Order" ],
+        "summary" : "Update Order with MOP or Address",
+        "description" : "Allow api to update MOP / address till certain status",
+        "operationId" : "updateOrder",
+        "parameters" : [ {
+          "name" : "tenantId",
+          "in" : "header",
+          "description" : "tenantId",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "AJIO"
+        }, {
+          "name" : "version",
+          "in" : "header",
+          "description" : "version of payload",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "v1"
+        }, {
+          "name" : "source",
+          "in" : "header",
+          "description" : "source system",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "FS"
+        }, {
+          "name" : "request-id",
+          "in" : "header",
+          "description" : "any unique request id",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "some-uuid"
+        } ],
+        "requestBody" : {
+          "description" : "Creation of an order in json",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Order"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "order is accepted",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderCreateResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Mandatory field Missing",
+            "content" : {
+              "applicaton/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "OAuth2" : [ "read the token from auth service" ]
+        } ]
       }
     },
     "/frms/v1/orders/{orderNo}/status" : {
