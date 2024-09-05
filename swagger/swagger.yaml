@@ -2880,6 +2880,11 @@
             "description" : "Shipping Instruction",
             "example" : "handle with care"
           },
+          "parentLineReference" : {
+            "type" : "string",
+            "description" : "Parent Line Reference Id (SKU/PrimeLineId/or any reference in case of GWP)",
+            "example" : "2"
+          },
           "comment" : {
             "type" : "string",
             "description" : "Comment",
